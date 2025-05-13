@@ -1,2 +1,2 @@
 # ailos-sdk-php
-Um SDK facilitar o uso das API's da Ailos.
+Integre com as APIs do sistema Ailos com simplicidade e segurança.
