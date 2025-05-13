@@ -1,0 +1,17 @@
+{
+    "name": "senna/ailos-sdk-php",
+    "description": "Integre com as APIs do sistema Ailos com simplicidade e segurança.",
+    "type": "sdk",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Senna\\AilosSdkPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Vinícius de Senna"
+        }
+    ],
+    "require": {}
+}
