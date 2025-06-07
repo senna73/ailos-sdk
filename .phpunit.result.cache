@@ -1,0 +1,1 @@
+{"version":1,"defects":{"AuthServiceTest::testAccessToken":7,"AuthServiceTest::testId":7,"AuthServiceTest::testAuth":8},"times":{"AuthServiceTest::testAccessToken":0.362,"AuthServiceTest::testId":0.666,"AuthServiceTest::testAuth":1.737,"AuthServiceTest::testIdEndpointReturnsValidResponse":1.148,"AuthServiceTest::testAuthEndpointReturnsSuccess":1.107}}

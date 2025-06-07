@@ -13,5 +13,10 @@
             "name": "Vinícius de Senna"
         }
     ],
-    "require": {}
+    "require": {
+        "guzzlehttp/guzzle": "^7.9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    }
 }
