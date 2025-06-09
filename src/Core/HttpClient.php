@@ -5,11 +5,12 @@
     use GuzzleHttp\Client;
     use GuzzleHttp\Exception\RequestException;
     use Psr\Http\Message\ResponseInterface;
+    use Senna\AilosSdkPhp\Core\HttpClientInterface;
 
     /**
      * Classe responsavel por gerenciar as operações HTTP.
      */
-    class HttpClient
+    class HttpClient implements HttpClientInterface
     {
         private Client $client;
         private array $defaultOptions;
@@ -32,7 +33,7 @@
         }
 
         /**
-         * Adiciona ou sobrescreve um header padrão.
+         * Implementa a função que adiciona ou sobrescreve um header padrão.
          *
          * @param string $name Nome do header.
          * @param string $value Valor do header.
@@ -44,7 +45,7 @@
         }
 
         /**
-         * Realiza uma requisição GET.
+         * Implementa a função que realiza uma requisição GET.
          *
          * @param string $uri O endpoint para a requisição.
          * @param array $query Parâmetros de query string.
@@ -58,7 +59,7 @@
         }
 
         /**
-         * Realiza uma requisição POST.
+         * Implementa a função que realiza uma requisição POST.
          *
          * @param string $uri O endpoint para a requisição.
          * @param array|string $body O corpo da requisição (pode ser um array para form_params ou json, ou string).
@@ -74,7 +75,7 @@
         }
 
         /**
-         * Realiza uma requisição PUT.
+         * Implementa a função que realiza uma requisição PUT.
          *
          * @param string $uri O endpoint para a requisição.
          * @param array|string $body O corpo da requisição.
@@ -90,7 +91,7 @@
         }
 
         /**
-         * Realiza uma requisição DELETE.
+         * Implementa a função que realiza uma requisição DELETE.
          *
          * @param string $uri O endpoint para a requisição.
          * @param array $query Parâmetros de query string.
