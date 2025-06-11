@@ -1,11 +1,12 @@
 <?php
+
 namespace Senna\AilosSdkPhp\API\Cobranca\Boleto\Dto;
 
 use Senna\AilosSdkPhp\API\Cobranca\Pagador\Dto\PagadorDto;
 use Senna\AilosSdkPhp\Core\DtoInterface;
 
-readonly class BoletoDto implements DtoInterface{
-     public function __construct(
+readonly class CarneDto implements DtoInterface {
+    public function __construct(
         public ConvenioCobrancaDto $convenioCobranca,
         public DocumentoDto $documento,
         public EmissaoDto $emissao,
@@ -13,10 +14,12 @@ readonly class BoletoDto implements DtoInterface{
         public VencimentoDto $vencimento,
         public InstrucoesDto $instrucoes,
         public string $valorNominal,
-        public AvisoSmsDto $avisoSms,
+        public AvisoSMSDto $avisoSms,
         public PagamentoDivergenteDto $pagamentoDivergente,
         public AvalistaDto $avalista,
         public int $indicadorRegistroNuclea,
+        public int $numeroParcela,
+        public TipoVencimentoDto $tipoVencimento
     ) {}
 
     public static function fromRequest(object $request): self
@@ -33,23 +36,27 @@ readonly class BoletoDto implements DtoInterface{
             $request->pagamentoDivergente,
             $request->avalista,
             $request->indicadorRegistroNuclea,
+            $request->numeroParcela,
+            $request->tipoVencimento,
         );
     }
 
     public static function fromArray(array $data): self
     {
         return new self(
-            $data["convenioCobranca"],
-            $data["documento"],
-            $data["emissao"],
-            $data["pagador"],
-            $data["vencimento"],
-            $data["instrucoes"],
-            $data["valorNominal"],
-            $data["avisoSms"],
-            $data["pagamentoDivergente"],
-            $data["avalista"],
-            $data["indicadorRegistroNuclea"],
+            $data['convenioCobranca'],
+            $data['documento'],
+            $data['emissao'],
+            $data['pagador'],
+            $data['vencimento'],
+            $data['instrucoes'],
+            $data['valorNominal'],
+            $data['avisoSms'],
+            $data['pagamentoDivergente'],
+            $data['avalista'],
+            $data['indicadorRegistroNuclea'],
+            $data['numeroParcela'],
+            $data['tipoVencimento'],
         );
     }
 
@@ -66,7 +73,9 @@ readonly class BoletoDto implements DtoInterface{
             "avisoSms"=> $this->avisoSms,
             "pagamentoDivergente"=> $this->pagamentoDivergente,
             "avalista"=> $this->avalista,
-            "indicadorRegistroNuclea"=> $this->indicadorRegistroNuclea
+            "indicadorRegistroNuclea"=> $this->indicadorRegistroNuclea,
+            "numeroParcela" => $this->numeroParcela,
+            "tipoVencimento" => $this->tipoVencimento,
         ];
     }
 }
