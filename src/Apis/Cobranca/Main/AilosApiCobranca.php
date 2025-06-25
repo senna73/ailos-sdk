@@ -2,12 +2,16 @@
 
 namespace Senna\AilosSdkPhp\API\Cobranca;
 
-use Senna\AilosSdkPhp\API\AilosAPI;
+use Senna\AilosSdkPhp\Core\AilosHttpClient;
 use Senna\AilosSdkPhp\API\Cobranca\Auth\Auth;
 use Senna\AilosSdkPhp\API\Cobranca\Boleto\Boleto;
 
-class Cobranca {
-    public function __construct(private AilosAPI $api){}
+class AilosApiCobranca {
+    private AilosHttpClient $httpClient;
+
+    public function __construct(string $baseUri, array $defaultHeaders = [], float $timeout = 10.0) {
+        $this->httpClient = new AilosHttpClient($baseUri, $defaultHeaders, $timeout);
+    }
 
     public function __get(string $name)
     {

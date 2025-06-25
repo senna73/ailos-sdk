@@ -3,10 +3,14 @@
 namespace Senna\AilosSdkPhp\API\Cobranca\Auth;
 
 use Psr\Http\Message\ResponseInterface;
-use Senna\AilosSdkPhp\API\AilosAPI;
+use Senna\AilosSdkPhp\Core\Client\AilosHttpClient;
 
 class Auth {
-    public function __construct(private AilosAPI $api) {}
+    private AilosHttpClient $httpClient;
+
+    public function __construct(string $baseUri, array $defaultHeaders = [], float $timeout = 10.0) {
+        $this->httpClient = new AilosHttpClient($baseUri, $defaultHeaders, $timeout);
+    }
 
     /**
      * Gera o 1º token.
