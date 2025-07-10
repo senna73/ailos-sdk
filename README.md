@@ -1,6 +1,7 @@
 # ⚒️ Ailos SDK PHP
 Este SDK foi desenvolvido para facilitar a integração com os serviços da **Cooperativa Ailos**, oferecendo uma interface simples, segura e eficiente para desenvolvedores PHP.
-![Ailos SDK Banner](src\Common\Images\ailos-sdk-banner.jpg)
+
+![Ailos SDK PHP](https://github.com/user-attachments/assets/c9ddc4f6-0a2d-4d52-8766-3a4f898d3ae3)
 
 # 📖 Documentação
 
