@@ -106,7 +106,7 @@ class Auth {
             );
             
         } catch (\Throwable $e) {
-            throw new ApiException("Erro ao solicitar access token: {$e->getMessage()}", $e->getCode(), $e);
+            throw new ApiException("Erro ao gerar o id: {$e->getMessage()}", $e->getCode(), $e);
         }
     }
 
@@ -117,7 +117,7 @@ class Auth {
      * @param string $ailosApiKeyDeveloper UUID fornecido pela Ailos.
      * @param string $state Identificação da chamada.
      * 
-     * @throws ApiException Se a resposta estiver malformada ou sem token.
+     * @throws ApiException Em caso de erro na requisição.
      *
      * @return ApiResponse Objeto tratado contendo os dados da resposta.
      */
@@ -167,7 +167,7 @@ class Auth {
             );
             
         } catch (\Throwable $e) {
-            throw new ApiException("Erro ao solicitar access token: {$e->getMessage()}", $e->getCode(), $e);
+            throw new ApiException("Erro ao autenticar o token: {$e->getMessage()}", $e->getCode(), $e);
         }
     }
 
@@ -179,7 +179,7 @@ class Auth {
      * @param string $accountCode Código da conta fornecido pela Ailos.
      * @param string $password Senha da conta fornecida pela Ailos.
      * 
-     * @throws ApiException Se a resposta estiver malformada ou sem token.
+     * @throws ApiException Em caso de erro na requisição.
      *
      * @return ApiResponse Objeto tratado contendo os dados da resposta.
      */
@@ -187,6 +187,45 @@ class Auth {
     {
         $response = $this->auth($id, $loginCoopCode, $loginAccountCode, $loginPassword);
         return ResponseHandler::handle($response, [200]);
+    }
+
+    /**
+     * Faz o refresh do token setado no header.
+     * 
+     * @param string $id ID gerado com a URL de Callback;
+     *  
+     * @throws ApiException Em caso de erro na requisição.
+     *
+     * @return ResponseInterface Resposta bruta da API (PSR-7).
+     */
+    public function refresh($id): ResponseInterface
+    {
+        try {
+           return $this->api->getHttpClient()->get(
+                "ailos/identity/api/v1/autenticacao/token/refresh",
+                [
+                    "code" => $id
+                ]
+            );
+
+        } catch (\Throwable $e) {
+            throw new ApiException("Erro ao fazer o refresh: {$e->getMessage()}", $e->getCode(), $e);
+        } 
+    }
+
+    /**
+     * Faz o refresh do token setado no header.
+     * 
+     * @param string $id ID gerado com a URL de Callback;
+     * 
+     * @throws ApiException Em caso de erro na requisição.
+     *
+     * @return ApiResponse Objeto tratado contendo os dados da resposta.
+     */
+    public function getRefresh($id): ApiResponse
+    {
+        $return = $this->refresh($id);
+        return ResponseHandler::handle($return);
     }
 
 }
