@@ -35,7 +35,6 @@ $retorno = accessToken($clientId, $clientSecret);
 Métodos utilitários ou locais não seguem esse padrão.*
 
 ## API Cobrança
-
 ### Configuração
 Antes de qualquer chamada, crie e configure a instância de `Config`. Ela armazena os dados essenciais para autenticação e comunicação com a API.
 ```php
@@ -43,7 +42,6 @@ $config = new Config();
 ```
 
 ### Autenticação
-
 #### Instanciar classe de autenticação
 Vamos instanciar a classe de autenticação passando as nossas configurações como parametro. Essa classe de autenticação nós vamos utilizar para fazer as chamadas de autenticação da API.
 ```php
@@ -80,7 +78,7 @@ Mantenha o token atual no header e chame a função passando o ID da sessão:
 $auth->getRefresh($id);
 ```
 
-### Instanciando API de Cobrança
+### Instanciando Service de Cobrança
 Após a autenticação, instancie o serviço de cobrança.
 ```php
 $service = new Service($config);
@@ -201,4 +199,15 @@ $service->getGerarCarnes($convenio, new ConvenioCobranca(...), $carnes);
 Consulta pelo convênio e ticket:
 ```php
 $service->getConsultarCarnes($convenio, $ticket);
+```
+
+### Arq. Retorno
+#### Gerar Ticket
+```php
+$service->getTicketArqRetorno($convenio, $data);
+```
+
+#### Baixar Arq. Retorno
+```php
+$service->getArqRetorno($convenio, $ticket);
 ```
