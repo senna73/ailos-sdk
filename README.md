@@ -87,7 +87,6 @@ $service = new Service($config);
 ```
 
 ### Pagadores
-
 #### Cadastrar Pagador
 Monte um objeto `Pagador` com os dados necessários.
 ```php
@@ -132,4 +131,74 @@ $service->getExportarPagadores($tipoArquivo, $flagArquivoModelo);
 #### Importar Pagadores
 ```php
 $service->getImportarPagadores($arquivo, $codigoCanal, $ipAcionamento);
+```
+
+### Emissão e Consulta
+#### Gerar Boleto
+Monte um objeto `Boleto` com os dados necessários.
+```php
+$boleto = new Boleto(
+    new ConvenioCobranca(...),
+    new Documento(...),
+    new Emissao(...),
+    new Pagador(...),
+    new Vencimento(...),
+    new Instrucoes(...),
+    new ValorBoleto(...),
+    new AvisoSms(...),
+    new PagamentoDivergente(...),
+    new Avalista(...),
+    1
+);
+
+$service->getGerarBoleto($convenio, $boleto);
+```
+
+#### Consultar Boleto
+Consulta pelo convênio e número do boleto:
+```php
+$service->getConsultarBoleto($convenio, $numeroBoleto);
+```
+
+#### Gerar Lote de Boletos
+```php
+$service->getGerarBoletos($convenio, new ConvenioCobranca(...), $boleto);
+```
+
+#### Consultar Retorno do Lote de Boletos
+Consulta pelo convênio e ticket:
+```php
+$service->getConsultarBoletos($convênio, $ticket);
+```
+
+#### Gerar Boleto - Carnê
+Monte um objeto `Carne` com os dados necessários.
+```php
+$carne = new Carne(
+    new ConvenioCobranca(...),
+    new Documento(...),
+    new Emissao(...),
+    new Pagador(...),
+    new Vencimento(...),
+    new Instrucoes(...),
+    new ValorBoleto(...),
+    new AvisoSms(...),
+    new PagamentoDivergente(...),
+    new Avalista(...),
+    1,
+    1,
+    new TipoVencimento(...)
+);
+
+$service->getGerarCarne($carne);
+```
+#### Gerar Lote de Boletos - Carnê
+```php
+$service->getGerarCarnes($convenio, new ConvenioCobranca(...), $carnes);
+```
+
+#### Consultar Retorno do Lote de Boletos - Carnê
+Consulta pelo convênio e ticket:
+```php
+$service->getConsultarCarnes($convenio, $ticket);
 ```

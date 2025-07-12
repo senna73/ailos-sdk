@@ -1,7 +1,7 @@
 <?php
 namespace Senna\AilosSdkPhp\API\Cob\Models;
 
-class BoletoUnico {
+class Carne {
     public ConvenioCobranca $convenioCobranca;
     public Documento $documento;
     public Emissao $emissao;
@@ -13,6 +13,8 @@ class BoletoUnico {
     public PagamentoDivergente $pagamentoDivergente;
     public Avalista $avalista;
     public int $indicadorRegistroNuclea;
+    public int $numeroParcela;
+    public TipoVencimento $tipoVencimento;
 
     public function __construct(
         ConvenioCobranca $convenioCobranca,
@@ -25,7 +27,9 @@ class BoletoUnico {
         AvisoSms $avisoSms,
         PagamentoDivergente $pagamentoDivergente,
         Avalista $avalista,
-        int $indicadorRegistroNuclea
+        int $indicadorRegistroNuclea,
+        int $numeroParcela,
+        TipoVencimento $tipoVencimento
     ) {
         $this->convenioCobranca = $convenioCobranca;
         $this->documento = $documento;
@@ -38,6 +42,8 @@ class BoletoUnico {
         $this->pagamentoDivergente = $pagamentoDivergente;
         $this->avalista = $avalista;
         $this->indicadorRegistroNuclea = $indicadorRegistroNuclea;
+        $this->numeroParcela = $numeroParcela;
+        $this->tipoVencimento = $tipoVencimento;
     }
 
     public function toArray(): array {
@@ -53,6 +59,8 @@ class BoletoUnico {
             'pagamentoDivergente' => $this->pagamentoDivergente->toArray(),
             'avalista' => $this->avalista->toArray(),
             'indicadorRegistroNuclea' => $this->indicadorRegistroNuclea,
+            'numeroParcela'=> $this->numeroParcela,
+            'tipoVencimento'=> $this->tipoVencimento->toArray(),
         ];
     }
 }

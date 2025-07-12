@@ -3,11 +3,13 @@
 namespace Senna\AilosSdkPhp\API\Cob;
 
 use Psr\Http\Message\ResponseInterface;
+use Senna\AilosSdkPhp\API\Cob\Models\ConvenioCobranca;
 use Senna\AilosSdkPhp\API\Cob\Models\Pagador;
 use Senna\AilosSdkPhp\Exceptions\ApiException;
 use Senna\AilosSdkPhp\Common\ResponseHandler;
 use Senna\AilosSdkPhp\Common\Models\ApiResponse;
 use Senna\AilosSdkPhp\API\Cob\Models\Boleto;
+use Senna\AilosSdkPhp\API\Cob\Models\Carne;
 use Senna\AilosSdkPhp\Common\Utils\DocumentoValidator;
 
 class Service {
@@ -161,28 +163,6 @@ class Service {
 
     #BOLETOS
 
-    public function consultarBoleto(string $convenio, string $numero): ResponseInterface 
-    {
-        try {
-           return $this->api->getHttpClient()->get(
-                "ailos/cobranca/api/v2/boletos/consultar/boleto/convenios/",
-                [
-                    $convenio,
-                    $numero
-                ]
-            );
-
-        } catch (\Throwable $e) {
-            throw new ApiException("Erro ao consultar boleto: {$e->getMessage()}", $e->getCode(), $e);
-        }  
-    }
-
-    public function getConsultarBoleto(string $convenio, string $numero): ApiResponse
-    {
-        $response = $this->consultarBoleto($convenio, $numero);
-        return ResponseHandler::handle($response);
-    }
-
     public function gerarBoleto(string $convenio, Boleto $boleto): ResponseInterface
     {
         try {
@@ -192,7 +172,7 @@ class Service {
             );
 
         } catch (\Throwable $e) {
-            throw new ApiException("Erro ao consultar boleto: {$e->getMessage()}", $e->getCode(), $e);
+            throw new ApiException("Erro ao gerar boleto: {$e->getMessage()}", $e->getCode(), $e);
         } 
     }
 
@@ -202,12 +182,11 @@ class Service {
         return ResponseHandler::handle($response);
     }
 
-    public function gerarLote(string $convenio, array $boletos): ResponseInterface
+    public function consultarBoleto(string $convenio, string $numeroBoleto): ResponseInterface 
     {
         try {
-           return $this->api->getHttpClient()->post(
-                'ailos/cobranca/api/v2/boletos/gerar/boleto/lote/convenios/' . $convenio,
-                $boletos
+           return $this->api->getHttpClient()->get(
+                "ailos/cobranca/api/v2/boletos/consultar/boleto/convenios/" . $convenio . "/" . $numeroBoleto,
             );
 
         } catch (\Throwable $e) {
@@ -215,9 +194,110 @@ class Service {
         }  
     }
 
-    public function getGerarLote(string $convenio, array $boletos): ApiResponse
+    public function getConsultarBoleto(string $convenio, string $numeroBoleto): ApiResponse
     {
-        $response = $this->gerarLote($convenio, $boletos);
+        $response = $this->consultarBoleto($convenio, $numeroBoleto);
+        return ResponseHandler::handle($response);
+    }
+
+    public function gerarBoletos(string $convenio, ConvenioCobranca $convenioCobranca, array $boletos): ResponseInterface
+    {
+        try {
+           return $this->api->getHttpClient()->post(
+                'ailos/cobranca/api/v2/boletos/gerar/boleto/lote/convenios/' . $convenio,
+                [
+                    "convenioCobranca" => $convenioCobranca->toArray(),
+                    "boletos" => $boletos
+                ]
+            );
+
+        } catch (\Throwable $e) {
+            throw new ApiException("Erro ao gerar lote de boletos: {$e->getMessage()}", $e->getCode(), $e);
+        }  
+    }
+
+    public function getGerarBoletos(string $convenio, ConvenioCobranca $convenioCobranca, array $boletos): ApiResponse
+    {
+        $response = $this->gerarBoletos($convenio, $convenioCobranca, $boletos);
+        return ResponseHandler::handle($response);
+    }
+
+    public function consultarBoletos(string $convenio, string $ticket): ResponseInterface
+    {
+        try {
+           return $this->api->getHttpClient()->get(
+                'ailos/cobranca/api/v1/boletos/consultar/boleto/lote/convenios/' . $convenio . '/' . $ticket,
+            );
+
+        } catch (\Throwable $e) {
+            throw new ApiException("Erro ao consultar retorno do lote de boletos: {$e->getMessage()}", $e->getCode(), $e);
+        }  
+    }
+
+    public function getConsultarBoletos(string $convenio, string $ticket): ApiResponse
+    {
+        $response = $this->consultarBoletos($convenio, $ticket);
+        return ResponseHandler::handle($response);
+    }
+
+    #CARNES
+
+    public function gerarCarne(string $convenio, Carne $carne): ResponseInterface
+    {
+        try {
+           return $this->api->getHttpClient()->post(
+                'ailos/cobranca/api/v1/boletos/gerar/carne/convenios/' . $convenio,
+                $carne->toArray()
+            );
+
+        } catch (\Throwable $e) {
+            throw new ApiException("Erro ao gerar carne: {$e->getMessage()}", $e->getCode(), $e);
+        } 
+    }
+
+    public function getGerarCarne(string $convenio, Carne $carne): ApiResponse
+    {
+        $response = $this->gerarCarne($convenio, $carne);
+        return ResponseHandler::handle($response);
+    }
+
+    public function gerarCarnes(string $convenio, ConvenioCobranca $convenioCobranca, array $carnes): ResponseInterface
+    {
+        try {
+           return $this->api->getHttpClient()->post(
+                'ailos/cobranca/api/v2/boletos/gerar/carne/lote/convenios/' . $convenio,
+                [
+                    "convenioCobranca" => $convenioCobranca->toArray(),
+                    "carnes" => $carnes
+                ]
+            );
+
+        } catch (\Throwable $e) {
+            throw new ApiException("Erro ao gerar lote de carnes: {$e->getMessage()}", $e->getCode(), $e);
+        }   
+    }
+
+    public function getGerarCarnes(string $convenio, ConvenioCobranca $convenioCobranca, array $carnes): ApiResponse
+    {
+        $response = $this->gerarCarnes($convenio, $convenioCobranca, $carnes);
+        return ResponseHandler::handle($response);
+    }
+
+    public function consultarCarnes(string $convenio, $ticket): ResponseInterface
+    {
+        try {
+           return $this->api->getHttpClient()->get(
+                'ailos/cobranca/api/v1/boletos/consultar/carne/lote/convenios/' . $convenio . '/' . $ticket,
+            );
+
+        } catch (\Throwable $e) {
+            throw new ApiException("Erro ao consultar retorno do lote de carnes: {$e->getMessage()}", $e->getCode(), $e);
+        } 
+    }
+
+    public function getConsultarCarnes(string $convenio, $ticket): ApiResponse
+    {
+        $response = $this->consultarCarnes($convenio, $ticket);
         return ResponseHandler::handle($response);
     }
 }
