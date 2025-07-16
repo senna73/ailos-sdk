@@ -16,11 +16,14 @@ class DocumentoValidator
     protected function definirTipo(): string
     {
         $length = strlen($this->documento);
-        return match ($length) {
-            11 => 'CPF',
-            14 => 'CNPJ',
-            default => 'INVÁLIDO',
-        };
+        switch ($length) {
+            case 11:
+                return 'CPF';
+            case 14:
+                return 'CNPJ';
+            default:
+                return 'INVÁLIDO';
+        }
     }
 
     public function getTipo(): string
@@ -30,11 +33,14 @@ class DocumentoValidator
 
     public function validar(): bool
     {
-        return match ($this->tipo) {
-            'CPF' => $this->validarCpf(),
-            'CNPJ' => $this->validarCnpj(),
-            default => false,
-        };
+        switch ($this->tipo) {
+            case 'CPF':
+                return $this->validarCpf();
+            case 'CNPJ':
+                return $this->validarCnpj();
+            default:
+                return false;
+        }
     }
 
     protected function validarCpf(): bool
