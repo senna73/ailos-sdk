@@ -15,47 +15,28 @@ Este SDK foi desenvolvido para facilitar a integração com os serviços da **Co
 [![Issues](https://img.shields.io/github/issues/ViniciusDeSenna/ailos-sdk-php)](https://github.com/ViniciusDeSenna/ailos-sdk-php/issues)
 [![GitHub Stars](https://img.shields.io/github/stars/ViniciusDeSenna/ailos-sdk-php?style=social)](https://github.com/ViniciusDeSenna/ailos-sdk-php/stargazers)
 
-# 🤝 Contribuindo
-Pull requests são bem-vindos! Sinta-se à vontade para abrir issues e sugerir melhorias. 
+## 🧩 Estrutura de Chamadas
+O SDK oferece dois tipos principais de chamadas:
 
-Para contribuir:
-
-1. Fork este repositório
-2. Crie uma branch com sua feature: `git checkout -b minha-feature`
-3. Commit suas mudanças: `git commit -m 'Adiciona nova feature'`
-4. Push para o repositório: `git push origin minha-feature`
-5. Abra um Pull Request
-
-# 📖 Documentação
-
-## Informações Gerais
-
-### Chamadas e Chamadas Tratadas
-
-Salvo exceções específicas, todas as chamadas de API no SDK seguem dois formatos:
-
-#### 🔹 Funções de alto nível (`get*`)
-
+### 🔹 Funções de alto nível (`get*`)
 Funções com o prefixo `get` realizam a chamada à API, tratam a resposta, validam campos obrigatórios e executam ações adicionais (como configurar headers automaticamente). Elas retornam um objeto `ApiResponse` com os dados prontos para uso.
 
 São ideais para quem busca praticidade e uma resposta já estruturada.
-
 ```php
 $retorno = getAccessToken($clientId, $clientSecret, true);
 ```
 
-#### 🔸 Funções de baixo nível (sem prefixo)
-
+### 🔸 Funções de baixo nível (sem prefixo)
 Funções sem o prefixo `get` apenas executam a chamada bruta à API, retornando um objeto `ResponseInterface` (PSR-7).
 
 São indicadas para desenvolvedores que desejam controle total sobre o tratamento da resposta (como status code, headers, corpo bruto, etc.).
-
 ```php
 $retorno = accessToken($clientId, $clientSecret);
 ```
 
-*⚠️ Esta regra se aplica apenas a funções que fazem chamadas HTTP externas (como nas classes `Auth` ou `Service`).
-Métodos utilitários ou locais não seguem esse padrão.*
+> ⚠️ Essa divisão vale apenas para métodos com chamadas HTTP externas (como `Auth` ou `Service`). Métodos utilitários não seguem esse padrão.
+
+---
 
 ## API Cobrança
 ### Configuração
@@ -234,3 +215,19 @@ $service->getTicketArqRetorno($convenio, $data);
 ```php
 $service->getArqRetorno($convenio, $ticket);
 ```
+
+## 🤝 Contribuindo
+
+Contribuições são sempre bem-vindas!
+
+### Para colaborar:
+
+1. **Fork** este repositório  
+2. Crie uma **branch**: `git checkout -b minha-feature`
+3. Faça seus **commits**: `git commit -m 'Adiciona nova feature'`
+4. Faça o **push** da branch: `git push origin minha-feature`
+5. Abra um **Pull Request**
+
+---
+
+✨ Sinta-se à vontade para abrir **issues** com sugestões, dúvidas ou melhorias. Este SDK é construído com foco na comunidade!
