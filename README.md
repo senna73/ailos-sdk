@@ -3,6 +3,29 @@ Este SDK foi desenvolvido para facilitar a integração com os serviços da **Co
 
 ![Ailos SDK PHP](https://github.com/user-attachments/assets/c9ddc4f6-0a2d-4d52-8766-3a4f898d3ae3)
 
+[![PHP Version](https://img.shields.io/badge/php-%3E%3D7.4-blue.svg)](https://www.php.net/)
+[![Code Style](https://img.shields.io/badge/code_style-PSR--12-blue)](https://www.php-fig.org/psr/psr-12/)
+[![License](https://img.shields.io/github/license/ViniciusDeSenna/ailos-sdk-php)](LICENSE)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/ViniciusDeSenna/ailos-sdk-php/php.yml?branch=main)](https://github.com/ViniciusDeSenna/ailos-sdk-php/actions)
+[![Coverage](https://img.shields.io/codecov/c/github/ViniciusDeSenna/ailos-sdk-php)](https://codecov.io/gh/ViniciusDeSenna/ailos-sdk-php)
+[![Maintenance](https://img.shields.io/maintenance/yes/2025)]()
+[![Last Commit](https://img.shields.io/github/last-commit/ViniciusDeSenna/ailos-sdk-php)](https://github.com/ViniciusDeSenna/ailos-sdk-php/commits)
+[![Packagist](https://img.shields.io/packagist/v/ViniciusDeSenna/ailos-sdk-php)](https://packagist.org/packages/ViniciusDeSenna/ailos-sdk-php)
+[![Downloads](https://img.shields.io/packagist/dt/ViniciusDeSenna/ailos-sdk-php)](https://packagist.org/packages/ViniciusDeSenna/ailos-sdk-php)
+[![Issues](https://img.shields.io/github/issues/ViniciusDeSenna/ailos-sdk-php)](https://github.com/ViniciusDeSenna/ailos-sdk-php/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/ViniciusDeSenna/ailos-sdk-php?style=social)](https://github.com/ViniciusDeSenna/ailos-sdk-php/stargazers)
+
+# 🤝 Contribuindo
+Pull requests são bem-vindos! Sinta-se à vontade para abrir issues e sugerir melhorias. 
+
+Para contribuir:
+
+1. Fork este repositório
+2. Crie uma branch com sua feature: `git checkout -b minha-feature`
+3. Commit suas mudanças: `git commit -m 'Adiciona nova feature'`
+4. Push para o repositório: `git push origin minha-feature`
+5. Abra um Pull Request
+
 # 📖 Documentação
 
 ## Informações Gerais
