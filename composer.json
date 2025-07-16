@@ -1,6 +1,6 @@
 {
-    "name": "senna/ailos-sdk-php",
-    "description": "Integre com as APIs do sistema Ailos com simplicidade e segurança.",
+    "name": "vsenna/ailos-sdk-php",
+    "description": "Este SDK foi desenvolvido para facilitar a integração com os serviços da Cooperativa Ailos, oferecendo uma interface simples, segura e eficiente para desenvolvedores PHP.",
     "type": "sdk",
     "license": "MIT",
     "autoload": {
@@ -14,6 +14,7 @@
         }
     ],
     "require": {
+        "php": ">=8.4",
         "guzzlehttp/guzzle": "^7.9"
     },
     "require-dev": {
