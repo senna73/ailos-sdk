@@ -10,11 +10,13 @@ Este SDK foi desenvolvido para facilitar a integração com os serviços da **Co
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/ViniciusDeSenna/ailos-sdk-php/php.yml?branch=main)](https://github.com/ViniciusDeSenna/ailos-sdk-php/actions)
 [![Coverage](https://img.shields.io/codecov/c/github/ViniciusDeSenna/ailos-sdk-php)](https://codecov.io/gh/ViniciusDeSenna/ailos-sdk-php)
+![GitHub Release](https://img.shields.io/github/v/release/ViniciusDeSenna/ailos-sdk-php)
 [![Packagist](https://img.shields.io/packagist/v/vsenna/ailos-sdk-php)](https://packagist.org/packages/vsenna/ailos-sdk-php)
 [![Downloads](https://img.shields.io/packagist/dt/vsenna/ailos-sdk-php)](https://packagist.org/packages/vsenna/ailos-sdk-php)
 
 [![Last Commit](https://img.shields.io/github/last-commit/ViniciusDeSenna/ailos-sdk-php)](https://github.com/ViniciusDeSenna/ailos-sdk-php/commits)
 [![Issues](https://img.shields.io/github/issues/ViniciusDeSenna/ailos-sdk-php)](https://github.com/ViniciusDeSenna/ailos-sdk-php/issues)
+![GitHub forks](https://img.shields.io/github/forks/ViniciusDeSenna/ailos-sdk-php?style=social)
 [![GitHub Stars](https://img.shields.io/github/stars/ViniciusDeSenna/ailos-sdk-php?style=social)](https://github.com/ViniciusDeSenna/ailos-sdk-php/stargazers)
 
 ---
