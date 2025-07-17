@@ -62,3 +62,9 @@ Se você encontrar alguma vulnerabilidade de segurança, por favor reporte via [
 ## 📄 Licença
 
 Este projeto está licenciado sob os termos da [MIT License](LICENSE).
+
+---
+
+## 👥 Contribuidores
+
+[![Contribuidores](https://contrib.rocks/image?repo=ViniciusDeSenna/ailos-sdk-php)](https://github.com/ViniciusDeSenna/ailos-sdk-php/graphs/contributors)
