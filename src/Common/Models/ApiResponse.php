@@ -1,6 +1,6 @@
 <?php
 
-namespace Senna\AilosSdkPhp\Common\Models;
+namespace AilosSDK\Common\Models;
 
 use Psr\Http\Message\ResponseInterface;
 

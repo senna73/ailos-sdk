@@ -1,15 +1,20 @@
 <?php
 
-namespace Senna\AilosSdkPhp\API\Cob;
+namespace AilosSDK\API\Cob;
 
 use Psr\Http\Message\ResponseInterface;
-use Senna\AilosSdkPhp\Exceptions\ApiException;
-use Senna\AilosSdkPhp\Common\ResponseHandler;
-use Senna\AilosSdkPhp\Common\Models\ApiResponse;
+use AilosSDK\Exceptions\ApiException;
+use AilosSDK\Common\ResponseHandler;
+use AilosSDK\Common\Models\ApiResponse;
 
 class Auth {
 
-    public function __construct(private Config $api){}
+    private Config $api;
+
+    public function __construct(Config $api)
+    {
+        $this->api = $api;
+    }
 
 
     /**
@@ -24,22 +29,23 @@ class Auth {
      */
     public function accessToken(string $consumerKey, string $consumerSecret): ResponseInterface
     {
-        $credentials = base64_encode("$consumerKey:$consumerSecret");
-
+        $credentials = base64_encode(sprintf('%s:%s', $consumerKey, $consumerSecret));
+    
         $headers = [
             'Authorization' => "Basic {$credentials}",
             'Content-Type'  => 'application/x-www-form-urlencoded',
         ];
-
+    
         $body = ['grant_type' => 'client_credentials'];
-
+    
         try {
             return $this->api->getHttpClient()->post(
                 'token',
                 $body,
-                $headers
+                $headers,
+                'form_params'
             );
-
+    
         } catch (\Throwable $e) {
             throw new ApiException("Erro ao solicitar access token: {$e->getMessage()}", $e->getCode(), $e);
         }        
@@ -58,9 +64,14 @@ class Auth {
      *
      * @return ApiResponse Objeto tratado contendo os dados da resposta.
      */
-    public function getAccessToken(string $clientId, string $clientSecret, bool $setHeader = false): ApiResponse
+    public function getAccessToken(string $consumerKey, string $consumerSecret, bool $setHeader = false): ApiResponse
     {
-        $response = $this->accessToken($clientId, $clientSecret);
+
+        if (trim($consumerKey) === '' || trim($consumerSecret) === '') {
+            throw new ApiException("consumerKey e consumerSecret não podem ser strings vazias.");
+        }
+        
+        $response = $this->accessToken($consumerKey, $consumerSecret);
         $responseHandled = ResponseHandler::handle($response);
         $responseHandledData = $responseHandled->getData();
 

@@ -1,5 +1,5 @@
 <?php
-namespace Senna\AilosSdkPhp\API\Cob\Models;
+namespace AilosSDK\API\Cob\Models;
 
 class AvisoSms {
     public int $enviarAvisoVencimentoSms;

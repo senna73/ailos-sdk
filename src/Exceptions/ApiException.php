@@ -1,6 +1,6 @@
 <?php
 
-namespace Senna\AilosSdkPhp\Exceptions;
+namespace AilosSDK\Exceptions;
 
 use Exception;
 use Throwable;

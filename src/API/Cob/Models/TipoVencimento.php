@@ -1,5 +1,5 @@
 <?php
-namespace Senna\AilosSdkPhp\API\Cob\Models;
+namespace AilosSDK\API\Cob\Models;
 
 class TipoVencimento {
     public string $tipoVencimento;

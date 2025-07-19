@@ -1,18 +1,24 @@
 <?php
 
-namespace Senna\AilosSdkPhp\API\Cob;
+namespace AilosSDK\API\Cob;
 
-use Senna\AilosSdkPhp\Common\HttpClient;
+use AilosSDK\Common\HttpClient;
 
 class Config {
     private HttpClient $httpClient;
+    private string $baseUri;
+    private array $defaultHeaders;
+    private float $timeout;
     
     public function __construct(
-        private string $baseUri = 'https://apiendpointhml.ailos.coop.br/',
-        private array $defaultHeaders = [], 
-        private float $timeout = 10.0
+        string $baseUri = 'https://apiendpointhml.ailos.coop.br/',
+        array $defaultHeaders = [], 
+        float $timeout = 10.0
     ) 
     {
+        $this->baseUri = $baseUri;
+        $this->defaultHeaders = $defaultHeaders;
+        $this->timeout = $timeout;
         $this->httpClient = new HttpClient(
             $this->baseUri, 
             $this->defaultHeaders, 

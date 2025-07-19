@@ -1,6 +1,6 @@
 <?php 
 
-namespace Senna\AilosSdkPhp;
+namespace AilosSDK;
 
 use Banco\Cob\Config as CobConfig;
 use Banco\Cob\Auth as CobAuth;

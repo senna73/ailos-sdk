@@ -1,6 +1,6 @@
 <?php
 
-namespace Senna\AilosSdkPhp\Common\Utils;
+namespace AilosSDK\Common\Utils;
 
 class DocumentoValidator
 {

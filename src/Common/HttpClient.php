@@ -1,6 +1,6 @@
 <?php
 
-    namespace Senna\AilosSdkPhp\Common;
+    namespace AilosSDK\Common;
 
     use GuzzleHttp\Client;
     use GuzzleHttp\Exception\RequestException;
@@ -41,6 +41,7 @@
                 'base_uri' => $baseUri,
                 'timeout'  => $timeout,
                 'headers'  => $defaultHeaders,
+                'verify' => false,
             ];
 
             // Cria a instância do cliente HTTP usando as opções padrão
@@ -110,7 +111,6 @@
          */
         public function post(string $uri, $body = [], array $headers = [], string $bodyType = 'json'): ResponseInterface
         {
-            $body = http_build_query($body);
             $options = [$bodyType => $body, 'headers' => $headers];
             return $this->request('POST', $uri, $options);
         }
@@ -126,7 +126,6 @@
          */
         public function put(string $uri, $body = [], array $headers = [], string $bodyType = 'json'): ResponseInterface
         {
-            $body = http_build_query($body);
             $options = [$bodyType => $body, 'headers' => $headers];
             return $this->request('PUT', $uri, $options);
         }

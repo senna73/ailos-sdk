@@ -1,23 +1,27 @@
 <?php
 
-namespace Senna\AilosSdkPhp\API\Cob;
+namespace AilosSDK\API\Cob;
 
 use Psr\Http\Message\ResponseInterface;
-use Senna\AilosSdkPhp\API\Cob\Models\ConvenioCobranca;
-use Senna\AilosSdkPhp\API\Cob\Models\Pagador;
-use Senna\AilosSdkPhp\Exceptions\ApiException;
-use Senna\AilosSdkPhp\Common\ResponseHandler;
-use Senna\AilosSdkPhp\Common\Models\ApiResponse;
-use Senna\AilosSdkPhp\API\Cob\Models\Boleto;
-use Senna\AilosSdkPhp\API\Cob\Models\Carne;
-use Senna\AilosSdkPhp\Common\Utils\DocumentoValidator;
+use AilosSDK\API\Cob\Models\ConvenioCobranca;
+use AilosSDK\API\Cob\Models\Pagador;
+use AilosSDK\Exceptions\ApiException;
+use AilosSDK\Common\ResponseHandler;
+use AilosSDK\Common\Models\ApiResponse;
+use AilosSDK\API\Cob\Models\Boleto;
+use AilosSDK\API\Cob\Models\Carne;
+use AilosSDK\Common\Utils\DocumentoValidator;
 
 /**
  * Classe de serviço para integração com a API de cobrança Ailos.
  * Realiza operações de pagadores, boletos, carnês e arquivos de retorno.
  */
 class Service {
-    public function __construct(private Config $api) {}
+    private Config $api;
+
+    public function __construct(Config $api) {
+        $this->api = $api;
+    }
 
     // =========================
     // PAGADORES

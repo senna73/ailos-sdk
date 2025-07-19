@@ -1,10 +1,10 @@
 <?php
 
-namespace Senna\AilosSdkPhp\Common;
+namespace AilosSDK\Common;
 
 use Psr\Http\Message\ResponseInterface;
-use Senna\AilosSdkPhp\Exceptions\ApiException;
-use Senna\AilosSdkPhp\Common\Models\ApiResponse;
+use AilosSDK\Exceptions\ApiException;
+use AilosSDK\Common\Models\ApiResponse;
 
 class ResponseHandler
 {

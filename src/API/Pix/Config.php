@@ -1,6 +1,6 @@
 <?php
 
-namespace Senna\AilosSdkPhp\API\Pix;
+namespace AilosSDK\API\Pix;
 
 class Config {
     //
