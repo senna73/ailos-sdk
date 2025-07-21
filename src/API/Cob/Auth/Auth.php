@@ -1,7 +1,8 @@
 <?php
 
-namespace AilosSDK\API\Cob;
+namespace AilosSDK\API\Cob\Auth;
 
+use AilosSDK\API\Cob\Config\Config;
 use Psr\Http\Message\ResponseInterface;
 use AilosSDK\Exceptions\ApiException;
 use AilosSDK\Common\ResponseHandler;
@@ -9,7 +10,7 @@ use AilosSDK\Common\Models\ApiResponse;
 
 class Auth {
 
-    private Config $api;
+    public Config $api;
 
     public function __construct(Config $api)
     {
@@ -81,7 +82,7 @@ class Auth {
 
         if ($setHeader) {
             $this->api->setDefaultHeaders([
-                'Authorization' => "{$responseHandledData['token_type']} {$responseHandledData['access_token']}"
+                'Authorization' => $responseHandledData['token_type'] . ' ' . $responseHandledData['access_token']
             ]);
         }
 
@@ -237,6 +238,44 @@ class Auth {
     {
         $return = $this->refresh($id);
         return ResponseHandler::handle($return);
+    }
+
+    /**
+     * Realiza todo o processo de autenticação, obtendo um token de acesso,
+     * recuperando um ID e autenticando o usuário com as credenciais fornecidas.
+     *
+     * @param string $consumerKey Chave do consumidor para autenticação na API.
+     * @param string $consumerSecret Segredo do consumidor.
+     * @param string $urlCallback URL de callback usada no processo de autenticação.
+     * @param string $ailosApiKeyDeveloper Chave do desenvolvedor fornecida pela Ailos.
+     * @param string $state Identificador único da chamada.
+     * @param string $loginCoopCode Código da cooperativa do usuário.
+     * @param string $loginAccountCode Código da conta do usuário.
+     * @param string $loginPassword Senha do usuário.
+     * 
+     * @throws ApiException Se qualquer etapa do processo de autenticação falhar.
+     *
+     * @return ApiResponse Resultado final do processo de autenticação.
+     */
+    public function getFullAuth(string $consumerKey, string $consumerSecret, string $urlCallback, string $ailosApiKeyDeveloper, string $state, string $loginCoopCode, string $loginAccountCode, string $loginPassword): ApiResponse
+    {
+        try {
+            $this->getAccessToken($consumerKey, $consumerSecret, true);
+
+            $idResponse = $this->getId($urlCallback, $ailosApiKeyDeveloper, $state);
+            $idData = $idResponse->getData();
+
+            if (empty($idData['id'])) {
+                throw new ApiException("ID de autenticação ausente ou malformado na resposta da API.");
+            }
+
+            return $this->getAuth($idData['id'], $loginCoopCode, $loginAccountCode, $loginPassword);
+
+        } catch (ApiException $e) {
+            throw $e;
+        } catch (\Throwable $e) {
+            throw new ApiException("Erro inesperado no processo de autenticação completa: {$e->getMessage()}", $e->getCode(), $e);
+        }
     }
 
 }

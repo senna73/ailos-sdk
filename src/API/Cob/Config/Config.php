@@ -1,6 +1,6 @@
 <?php
 
-namespace AilosSDK\API\Cob;
+namespace AilosSDK\API\Cob\Config;
 
 use AilosSDK\Common\HttpClient;
 
@@ -11,9 +11,9 @@ class Config {
     private float $timeout;
     
     public function __construct(
-        string $baseUri = 'https://apiendpointhml.ailos.coop.br/',
-        array $defaultHeaders = [], 
-        float $timeout = 10.0
+        string $baseUri,
+        array $defaultHeaders, 
+        float $timeout
     ) 
     {
         $this->baseUri = $baseUri;
