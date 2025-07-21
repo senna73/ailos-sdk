@@ -1,2 +1,2 @@
 /vendor/
-/tests/.env
+/tests/Integration/Cob/.env

@@ -20,4 +20,40 @@ class AuthTest extends TestCase
 
         $this->cob = new CobAPI();
     }
+
+
+    public function testAccessToken()
+    {
+        $response = $this->cob->auth->accessToken(
+            $_ENV['AILOS_CONSUMER_KEY'],
+            $_ENV['AILOS_CONSUMER_SECRET'],
+        );
+
+        $body = $response->getBody()->getContents();
+        $data = json_decode($body, true);
+
+        $this->assertNotEmpty($response);
+        $this->assertIsArray($data);
+        $this->assertArrayHasKey('access_token', $data);
+        $this->assertArrayHasKey('expires_in', $data);
+        $this->assertNotEmpty($data['access_token']);
+    }
+
+    public function testGetAccessToken()
+    {
+        $apiResponse = $this->cob->auth->getAccessToken(
+            $_ENV['AILOS_CONSUMER_KEY'],
+            $_ENV['AILOS_CONSUMER_SECRET'],
+        );
+
+        $data = $apiResponse->getData();
+
+        $this->assertNotEmpty($apiResponse);
+        $this->assertIsArray($data);
+        $this->assertArrayHasKey('access_token', $data);
+        $this->assertArrayHasKey('expires_in', $data);
+        $this->assertNotEmpty($data['access_token']);
+    }
+
+
 }
