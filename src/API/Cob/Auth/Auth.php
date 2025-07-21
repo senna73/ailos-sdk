@@ -136,7 +136,13 @@ class Auth {
     public function getId(string $urlCallback, string $ailosApiKeyDeveloper, string $state): ApiResponse
     {
         $response = $this->id($urlCallback, $ailosApiKeyDeveloper, $state);
-        return ResponseHandler::handle($response, [200]);
+        $responseHandled = ResponseHandler::handle($response, [200]);
+        
+        $data = $responseHandled->getData();
+        $data['data'] = urlencode($data['data'] ?? '');
+        $responseHandled->setData($data);
+
+        return $responseHandled;
     }
 
     /**
