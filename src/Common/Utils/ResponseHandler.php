@@ -2,6 +2,8 @@
 
 namespace AilosSDK\Common\Utils;
 
+use DOMDocument;
+use DOMXPath;
 use Psr\Http\Message\ResponseInterface;
 use AilosSDK\Exceptions\ApiException;
 use AilosSDK\Common\Models\ApiResponse;
@@ -45,27 +47,26 @@ class ResponseHandler
      * @param string $rawBody Corpo bruto da resposta HTTP.
      * @return array<string, mixed> Corpo decodificado como array associativo.
      */
-    private static function processBody(string $rawBody)
+   private static function processBody(string $rawBody): array
     {
         $trimmedBody = trim($rawBody);
-        
-        // Se estiver vazio, retorna array vazio para manter consistência
+
         if (empty($trimmedBody)) {
             return [];
         }
-        
-        // Tenta decodificar como JSON
+
         $decoded = json_decode($trimmedBody, true);
-        
-        // Se é JSON válido, retorna o array decodificado
+
         if (json_last_error() === JSON_ERROR_NONE) {
-            return $decoded;
+            if (is_array($decoded)) {
+                return $decoded;
+            }
+            return ['data' => $decoded];
         }
-        
-        // Se não é JSON válido, retorna como array com chave 'data'
-        // Isso mantém consistência para o código que espera array
+
         return ['data' => $rawBody];
     }
+
 
     /**
      * Extrai uma mensagem de erro do corpo decodificado da resposta.
@@ -102,4 +103,49 @@ class ResponseHandler
         // Fallback padrão
         return 'Erro na chamada da API.';
     }
+
+    /**
+     * Valida o conteúdo HTML retornado após a autenticação na página do Ailos.
+     * 
+     * Essa função analisa o HTML e verifica:
+     *  - Se a autenticação foi bem-sucedida (título "Sucesso - Ailos").
+     *  - Se existe alguma mensagem de erro retornada pela página (dentro de uma <div> com a classe
+     *    "text-danger validation-summary-errors" e elementos <li>).
+     * 
+     * Em caso de erro, uma exceção do tipo ApiException será lançada com a mensagem extraída da página.
+     * Caso não seja possível determinar o sucesso ou erro, lança uma exceção genérica.
+     *
+     * @param string $html O HTML retornado pela página de autenticação.
+     * 
+     * @throws ApiException Se for detectado um erro na autenticação ou o HTML for inesperado.
+     * 
+     * @return void
+     */
+    public static function validateAuthPage(string $html): void
+    {
+        $dom = new \DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+
+        $tituloElement = $dom->getElementsByTagName('title')->item(0);
+        $titulo = $tituloElement ? trim($tituloElement->textContent) : '';
+
+        if ($titulo === 'Sucesso - Ailos') {
+            return;
+        }
+
+        $xpath = new \DOMXPath($dom);
+        $errorDivs = $xpath->query('//div[@class="text-danger validation-summary-errors"]');
+
+        if ($errorDivs->length > 0) {
+            $lis = $errorDivs->item(0)->getElementsByTagName('li');
+            if ($lis->length > 0) {
+                throw new ApiException(trim($lis->item(0)->textContent));
+            }
+        }
+
+        throw new ApiException('Resposta HTML não reconhecida: falha ao validar página de autenticação.');
+    }
+
 }

@@ -22,6 +22,11 @@ class ApiResponse
         return $this->statusCode;
     }
 
+    public function setStatusCode(int $statusCode): void
+    {
+        $this->statusCode = $statusCode;
+    }
+
     public function getHeaders(): array
     {
         return $this->headers;

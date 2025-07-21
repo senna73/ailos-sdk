@@ -63,18 +63,17 @@ class AuthTest extends TestCase
 
     public function testId()
     {
-        $responseToken = $this->cob->auth->accessToken(
-            $_ENV['AILOS_CONSUMER_KEY'],
-            $_ENV['AILOS_CONSUMER_SECRET'],
+        $dataToken = json_decode(
+            $this->cob->auth->accessToken(
+                $_ENV['AILOS_CONSUMER_KEY'],
+                $_ENV['AILOS_CONSUMER_SECRET'],
+            )->getBody()->getContents(),
+            true
         );
-
-        $bodyToken = $responseToken->getBody()->getContents();
-        $dataToken = json_decode($bodyToken, true);
 
         $this->cob->config->setDefaultHeaders([
             'Authorization' => $dataToken['token_type'] . ' ' . $dataToken['access_token']
         ]);
-
 
         $response = $this->cob->auth->id(
             $_ENV['AILOS_CALLBACK_URL'],
@@ -112,5 +111,157 @@ class AuthTest extends TestCase
         $this->assertNotEmpty($data['data']);
     }
 
+    public function testAuth()
+    {
+        $dataToken = json_decode(
+            $this->cob->auth->accessToken(
+                $_ENV['AILOS_CONSUMER_KEY'],
+                $_ENV['AILOS_CONSUMER_SECRET'],
+            )->getBody()->getContents(),
+            true
+        );
 
+        $this->cob->config->setDefaultHeaders([
+            'Authorization' => $dataToken['token_type'] . ' ' . $dataToken['access_token']
+        ]);
+
+
+        $id = $this->cob->auth->id(
+            $_ENV['AILOS_CALLBACK_URL'],
+            $_ENV['AILOS_API_KEY_DEVELOPER_UUID'],
+            'meu-state-teste'
+        )->getBody()->getContents();
+
+        $response = $this->cob->auth->auth(
+            $id,
+            $_ENV['AILOS_LOGIN_COOP'],
+            $_ENV['AILOS_LOGIN_ACCOUNT'],
+            $_ENV['AILOS_LOGIN_PASSWORD'],
+        );
+        
+        $data = $response->getBody()->getContents();
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertIsString($data);
+        $this->assertNotEmpty($data);
+    }
+
+    public function testGetAuth()
+    {
+        
+        $this->cob->auth->getAccessToken(
+            $_ENV['AILOS_CONSUMER_KEY'],
+            $_ENV['AILOS_CONSUMER_SECRET'],
+            true
+        );
+
+        $id = $this->cob->auth->getId(
+            $_ENV['AILOS_CALLBACK_URL'],
+            $_ENV['AILOS_API_KEY_DEVELOPER_UUID'],
+            'meu-state-teste'
+        )->getData()['data'];
+
+        $response = $this->cob->auth->getAuth(
+            $id,
+            $_ENV['AILOS_LOGIN_COOP'],
+            $_ENV['AILOS_LOGIN_ACCOUNT'],
+            $_ENV['AILOS_LOGIN_PASSWORD'],
+        );
+        
+        $data = $response->getData();
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertArrayHasKey('data', $data);
+        $this->assertIsString($data['data']);
+        $this->assertNotEmpty($data['data']);
+    }
+
+    public function testRefresh()
+    {
+        $dataToken = json_decode(
+            $this->cob->auth->accessToken(
+                $_ENV['AILOS_CONSUMER_KEY'],
+                $_ENV['AILOS_CONSUMER_SECRET'],
+            )->getBody()->getContents(),
+            true
+        );
+
+        $this->cob->config->setDefaultHeaders([
+            'Authorization' => $dataToken['token_type'] . ' ' . $dataToken['access_token']
+        ]);
+
+
+        $id = $this->cob->auth->id(
+            $_ENV['AILOS_CALLBACK_URL'],
+            $_ENV['AILOS_API_KEY_DEVELOPER_UUID'],
+            'meu-state-teste'
+        )->getBody()->getContents();
+
+        $this->cob->auth->auth(
+            $id,
+            $_ENV['AILOS_LOGIN_COOP'],
+            $_ENV['AILOS_LOGIN_ACCOUNT'],
+            $_ENV['AILOS_LOGIN_PASSWORD'],
+        );
+
+        $response = $this->cob->auth->refresh($_ENV['AILOS_CODE']);
+
+        $data = $response->getBody()->getContents();
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertIsString($data);
+        $this->assertNotEmpty($data);
+    }
+
+    public function testGetRefresh()
+    {
+        $this->cob->auth->getAccessToken(
+            $_ENV['AILOS_CONSUMER_KEY'],
+            $_ENV['AILOS_CONSUMER_SECRET'],
+            true
+        );
+
+        $id = $this->cob->auth->getId(
+            $_ENV['AILOS_CALLBACK_URL'],
+            $_ENV['AILOS_API_KEY_DEVELOPER_UUID'],
+            'meu-state-teste'
+        )->getData()['data'];
+
+        $this->cob->auth->getAuth(
+            $id,
+            $_ENV['AILOS_LOGIN_COOP'],
+            $_ENV['AILOS_LOGIN_ACCOUNT'],
+            $_ENV['AILOS_LOGIN_PASSWORD'],
+        );
+
+        $response = $this->cob->auth->getRefresh($_ENV['AILOS_CODE']);
+
+        $data = $response->getData();
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertArrayHasKey('data', $data);
+        $this->assertIsString($data['data']);
+        $this->assertNotEmpty($data['data']);
+    }
+
+    public function testGetFullAuth()
+    {
+        $response = $this->cob->auth->getFullAuth(
+            $_ENV['AILOS_CONSUMER_KEY'],
+            $_ENV['AILOS_CONSUMER_SECRET'],
+            $_ENV['AILOS_CALLBACK_URL'],
+            $_ENV['AILOS_API_KEY_DEVELOPER_UUID'],
+            'teste-state',
+            $_ENV['AILOS_LOGIN_COOP'],
+            $_ENV['AILOS_LOGIN_ACCOUNT'],
+            $_ENV['AILOS_LOGIN_PASSWORD']
+        );
+
+        $data = $response->getData();
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertArrayHasKey('data', $data);
+        $this->assertIsString($data['data']);
+        $this->assertNotEmpty($data['data']);
+    }
 }

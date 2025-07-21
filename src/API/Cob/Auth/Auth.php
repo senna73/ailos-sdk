@@ -136,13 +136,7 @@ class Auth {
     public function getId(string $urlCallback, string $ailosApiKeyDeveloper, string $state): ApiResponse
     {
         $response = $this->id($urlCallback, $ailosApiKeyDeveloper, $state);
-        $responseHandled = ResponseHandler::handle($response, [200]);
-        
-        $data = $responseHandled->getData();
-        $data['data'] = urlencode($data['data'] ?? '');
-        $responseHandled->setData($data);
-
-        return $responseHandled;
+        return ResponseHandler::handle($response, [200]);
     }
 
     /**
@@ -204,25 +198,32 @@ class Auth {
     public function getAuth(string $id, string $loginCoopCode, string $loginAccountCode, string $loginPassword): ApiResponse
     {
         $response = $this->auth($id, $loginCoopCode, $loginAccountCode, $loginPassword);
-        return ResponseHandler::handle($response, [200]);
+        $responseHandled = ResponseHandler::handle($response, [200]);
+
+        if (!isset($responseHandled->getData()['data'])) {
+            throw new ApiException('Resposta inválida: html de retorno ausente.');
+        }
+
+        ResponseHandler::validateAuthPage($responseHandled->getData()['data']);
+        return $responseHandled;
     }
 
     /**
      * Faz o refresh do token setado no header.
      * 
-     * @param string $id ID gerado com a URL de Callback;
+     * @param string $code Código gerado com a URL de Callback;
      *  
      * @throws ApiException Em caso de erro na requisição.
      *
      * @return ResponseInterface Resposta bruta da API (PSR-7).
      */
-    public function refresh($id): ResponseInterface
+    public function refresh($code): ResponseInterface
     {
         try {
            return $this->api->getHttpClient()->get(
                 "ailos/identity/api/v1/autenticacao/token/refresh",
                 [
-                    "code" => $id
+                    "code" => $code
                 ]
             );
 
@@ -234,15 +235,15 @@ class Auth {
     /**
      * Faz o refresh do token setado no header.
      * 
-     * @param string $id ID gerado com a URL de Callback;
+     * @param string $code Código gerado com a URL de Callback;
      * 
      * @throws ApiException Em caso de erro na requisição.
      *
      * @return ApiResponse Objeto tratado contendo os dados da resposta.
      */
-    public function getRefresh($id): ApiResponse
+    public function getRefresh($code): ApiResponse
     {
-        $return = $this->refresh($id);
+        $return = $this->refresh($code);
         return ResponseHandler::handle($return);
     }
 
@@ -268,14 +269,13 @@ class Auth {
         try {
             $this->getAccessToken($consumerKey, $consumerSecret, true);
 
-            $idResponse = $this->getId($urlCallback, $ailosApiKeyDeveloper, $state);
-            $idData = $idResponse->getData();
-
-            if (empty($idData['id'])) {
+            $id = $this->getId($urlCallback, $ailosApiKeyDeveloper, $state)->getData()["data"];
+            
+            if (empty($id)) {
                 throw new ApiException("ID de autenticação ausente ou malformado na resposta da API.");
             }
 
-            return $this->getAuth($idData['id'], $loginCoopCode, $loginAccountCode, $loginPassword);
+            return $this->getAuth($id, $loginCoopCode, $loginAccountCode, $loginPassword);
 
         } catch (ApiException $e) {
             throw $e;
