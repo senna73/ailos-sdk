@@ -3,7 +3,7 @@ Este SDK foi desenvolvido para facilitar a integração com os serviços da **Co
 
 ![Animação](https://github.com/user-attachments/assets/c3dead1f-405f-4697-a3c2-59416306f3b7)
 
-[![PHP Version](https://img.shields.io/badge/php-%3E%3D7.4-blue.svg)](https://www.php.net/)
+[![PHP Version](https://img.shields.io/badge/php-%3E%3D8.0-blue.svg)](https://www.php.net/)
 [![Code Style](https://img.shields.io/badge/code_style-PSR--12-blue)](https://www.php-fig.org/psr/psr-12/)
 [![License](https://img.shields.io/github/license/ViniciusDeSenna/ailos-sdk-php)](LICENSE)
 [![Maintenance](https://img.shields.io/maintenance/yes/2025)]()
