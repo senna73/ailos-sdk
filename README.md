@@ -9,7 +9,6 @@ Este SDK foi desenvolvido para facilitar a integração com os serviços da **Co
 [![Maintenance](https://img.shields.io/maintenance/yes/2025)]()
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/ViniciusDeSenna/ailos-sdk-php/php.yml?branch=main)](https://github.com/ViniciusDeSenna/ailos-sdk-php/actions)
-[![Coverage](https://img.shields.io/codecov/c/github/ViniciusDeSenna/ailos-sdk-php)](https://codecov.io/gh/ViniciusDeSenna/ailos-sdk-php)
 ![GitHub Release](https://img.shields.io/github/v/release/ViniciusDeSenna/ailos-sdk-php)
 [![Packagist](https://img.shields.io/packagist/v/vsenna/ailos-sdk-php)](https://packagist.org/packages/vsenna/ailos-sdk-php)
 [![Downloads](https://img.shields.io/packagist/dt/vsenna/ailos-sdk-php)](https://packagist.org/packages/vsenna/ailos-sdk-php)
