@@ -2,7 +2,7 @@
 
 namespace AilosSDK\API\Cob\Config;
 
-use AilosSDK\Common\HttpClient;
+use AilosSDK\Common\Client\HttpClient;
 
 class Config {
     private HttpClient $httpClient;

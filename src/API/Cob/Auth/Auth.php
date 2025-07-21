@@ -5,7 +5,7 @@ namespace AilosSDK\API\Cob\Auth;
 use AilosSDK\API\Cob\Config\Config;
 use Psr\Http\Message\ResponseInterface;
 use AilosSDK\Exceptions\ApiException;
-use AilosSDK\Common\ResponseHandler;
+use AilosSDK\Common\Utils\ResponseHandler;
 use AilosSDK\Common\Models\ApiResponse;
 
 class Auth {

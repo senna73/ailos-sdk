@@ -1,6 +1,6 @@
 <?php
 
-    namespace AilosSDK\Common;
+    namespace AilosSDK\Common\Client;
 
     use GuzzleHttp\Client;
     use GuzzleHttp\Exception\RequestException;

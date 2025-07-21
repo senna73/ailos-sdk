@@ -1,13 +1,26 @@
 <?php
 
-namespace AilosSDK\Common;
+namespace AilosSDK\Common\Utils;
 
 use Psr\Http\Message\ResponseInterface;
 use AilosSDK\Exceptions\ApiException;
 use AilosSDK\Common\Models\ApiResponse;
 
+/**
+ * Classe responsável por tratar respostas da API.
+ * Lida com status HTTP esperados e extrai corpo da resposta de forma segura.
+ */
 class ResponseHandler
 {
+    /**
+     * Manipula a resposta da API, validando o status HTTP e decodificando o corpo.
+     *
+     * @param ResponseInterface $response A resposta da requisição HTTP.
+     * @param array<int> $expectedStatusCodes Lista de status HTTP considerados válidos (default: 200, 201).
+     * @return ApiResponse Objeto contendo a resposta processada e o corpo decodificado.
+     *
+     * @throws ApiException Caso o código de status não esteja entre os esperados.
+     */
     public static function handle(ResponseInterface $response, array $expectedStatusCodes = [200, 201]): ApiResponse
     {
         $statusCode = $response->getStatusCode();
@@ -26,9 +39,14 @@ class ResponseHandler
         return new ApiResponse($response, $decoded);
     }
     
+    /**
+     * Processa o corpo bruto da resposta, tentando decodificar como JSON.
+     *
+     * @param string $rawBody Corpo bruto da resposta HTTP.
+     * @return array<string, mixed> Corpo decodificado como array associativo.
+     */
     private static function processBody(string $rawBody)
     {
-        // Remove espaços em branco
         $trimmedBody = trim($rawBody);
         
         // Se estiver vazio, retorna array vazio para manter consistência
@@ -48,7 +66,13 @@ class ResponseHandler
         // Isso mantém consistência para o código que espera array
         return ['data' => $rawBody];
     }
-    
+
+    /**
+     * Extrai uma mensagem de erro do corpo decodificado da resposta.
+     *
+     * @param mixed $decoded Corpo já processado (normalmente array).
+     * @return string Mensagem de erro extraída, ou mensagem genérica se não encontrada.
+     */
     private static function extractErrorMessage($decoded): string
     {
         // Se é array e tem mensagem de erro
