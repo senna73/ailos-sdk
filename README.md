@@ -1,7 +1,7 @@
-# ⚒️ Ailos SDK PHP
-Este SDK foi desenvolvido para facilitar a integração com os serviços da **Cooperativa Ailos**, oferecendo uma interface simples, segura e eficiente para desenvolvedores PHP.
+<img width="2000" height="800" alt="Ailos SDK PHP" src="https://github.com/user-attachments/assets/551102c4-648b-4e14-abea-f5cecb86660c" />
 
-![Animação](https://github.com/user-attachments/assets/c3dead1f-405f-4697-a3c2-59416306f3b7)
+# Ailos SDK PHP
+Este SDK foi desenvolvido para facilitar a integração com os serviços da **Cooperativa Ailos**, oferecendo uma interface simples, segura e eficiente para desenvolvedores PHP.
 
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D8.0-blue.svg)](https://www.php.net/)
 [![Code Style](https://img.shields.io/badge/code_style-PSR--12-blue)](https://www.php-fig.org/psr/psr-12/)
@@ -20,7 +20,8 @@ Este SDK foi desenvolvido para facilitar a integração com os serviços da **Co
 
 ---
 
-## 🚀 Instalação Rápida
+## Instalação Rápida
+<img width="1200" height="150" alt="Instalação Rápida" src="https://github.com/user-attachments/assets/64fdbca5-40d8-44af-9121-c48ab73d4101" />
 
 Para usar o SDK no seu projeto PHP, instale via Composer:
 
@@ -30,7 +31,8 @@ composer require vsenna/ailos-sdk-php
 
 ---
 
-## 📚 Documentação Completa
+## Documentação
+<img width="1200" height="150" alt="Documentação" src="https://github.com/user-attachments/assets/2c0d9fb8-a0ef-40ab-bf6f-ddd778e2ddc0" />
 
 A documentação oficial do SDK ainda não está disponível.
 
@@ -38,7 +40,8 @@ Acesse agora: [**Em breve!**]()
 
 ---
 
-## 🤝 Contribuindo
+## Contribuindo
+<img width="1200" height="150" alt="Contribuindo" src="https://github.com/user-attachments/assets/af355e53-d66d-4668-bddf-ce43d73b46e8" />
 
 Contribuições são sempre bem-vindas!
 
@@ -54,18 +57,21 @@ Contribuições são sempre bem-vindas!
 
 ---
 
-## 🛡️ Segurança
+## Segurança
+<img width="1200" height="150" alt="Segurança" src="https://github.com/user-attachments/assets/5e6e8b07-d93d-4bf0-9d38-22e978b2418b" />
 
 Se você encontrar alguma vulnerabilidade de segurança, por favor reporte via [Issues](https://github.com/ViniciusDeSenna/ailos-sdk-php/issues) ou entre em contato diretamente.
 
 ---
 
-## 📄 Licença
+## Licença
+<img width="1200" height="150" alt="Licença" src="https://github.com/user-attachments/assets/78062c33-f91b-4c26-baff-1ab9f2af67c7" />
 
 Este projeto está licenciado sob os termos da [MIT License](LICENSE).
 
 ---
 
-## 👥 Contribuidores
+## Contribuidores
+<img width="1200" height="150" alt="Contribuidores" src="https://github.com/user-attachments/assets/13ee5cd9-6d43-42c3-b998-d412e8f8110a" />
 
 [![Contribuidores](https://contrib.rocks/image?repo=ViniciusDeSenna/ailos-sdk-php)](https://github.com/ViniciusDeSenna/ailos-sdk-php/graphs/contributors)
