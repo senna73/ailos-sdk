@@ -1,4 +1,4 @@
-<img width="2000" height="800" alt="Ailos SDK PHP" src="https://github.com/user-attachments/assets/551102c4-648b-4e14-abea-f5cecb86660c" />
+<img width="2000" height="800" alt="Ailos SDK PHP" src="https://github.com/user-attachments/assets/de553609-4521-43e4-8f74-2efdfff8ecd7" />
 
 # Ailos SDK PHP
 Este SDK foi desenvolvido para facilitar a integração com os serviços da **Cooperativa Ailos**, oferecendo uma interface simples, segura e eficiente para desenvolvedores PHP.
