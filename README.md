@@ -34,9 +34,9 @@ composer require vsenna/ailos-sdk-php
 ## Documentação
 <img width="1200" height="150" alt="Documentação" src="https://github.com/user-attachments/assets/2c0d9fb8-a0ef-40ab-bf6f-ddd778e2ddc0" />
 
-A documentação oficial do SDK ainda não está disponível.
+A documentação oficial do SDK já está disponível.
 
-Acesse agora: [**Em breve!**]()
+Acesse agora: [**Documentação (Wiki)!**](https://github.com/ViniciusDeSenna/ailos-sdk-php/wiki)
 
 ---
 
