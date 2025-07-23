@@ -67,6 +67,13 @@ Este projeto está licenciado sob os termos da [MIT License](LICENSE).
 
 ---
 
+## Atividade
+<img alt="ContribuindoBanner(3)" src="https://github.com/user-attachments/assets/f2dd8685-5b69-4083-8e1d-f19963ca01e8" />
+
+![Atividade Do Projeto](https://repobeats.axiom.co/api/embed/5f71511bd87ab4e7d8d980cd93c6c3ff2b0d3db5.svg "Repobeats analytics image")
+
+---
+
 ## Contribuidores
 <img alt="Contribuidores" src="https://github.com/user-attachments/assets/13ee5cd9-6d43-42c3-b998-d412e8f8110a" />
 
