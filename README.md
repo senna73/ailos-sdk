@@ -38,7 +38,7 @@ composer require vsenna/ailos-sdk-php
 
 A documentação oficial do SDK já está disponível.
 
-Acesse agora: [**Documentação (Wiki)!**](/ViniciusDeSenna/ailos-sdk-php/wiki)
+Acesse agora: [**Documentação (Wiki)!**](https://github.com/ViniciusDeSenna/ailos-sdk-php/wiki)
 
 ---
 
