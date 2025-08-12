@@ -2,13 +2,18 @@
 namespace AilosSDK\API\Cob\Models;
 
 class ConvenioCobranca {
+    public int $numeroConvenioCobranca;
     public int $codigoCarteiraCobranca;
 
-    public function __construct(int $codigoCarteiraCobranca) {
+    public function __construct(int $numeroConvenioCobranca, int $codigoCarteiraCobranca) {
+        $this->numeroConvenioCobranca = $numeroConvenioCobranca;
         $this->codigoCarteiraCobranca = $codigoCarteiraCobranca;
     }
 
     public function toArray(): array {
-        return ['codigoCarteiraCobranca' => $this->codigoCarteiraCobranca];
+        return [
+            'numeroConvenioCobranca' => $this->numeroConvenioCobranca,
+            'codigoCarteiraCobranca' => $this->codigoCarteiraCobranca
+        ];
     }
 }
