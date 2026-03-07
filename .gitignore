@@ -1,0 +1,26 @@
+# Dependências
+/vendor/
+
+# Composer
+composer.lock
+
+# PHP CS Fixer
+.php-cs-fixer.cache
+
+# PHPUnit
+.phpunit.cache/
+.phpunit.result.cache
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Logs e temporários
+*.log
+/tmp/
