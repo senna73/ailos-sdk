@@ -21,60 +21,21 @@ Este SDK foi desenvolvido para facilitar a integração com os serviços da **Co
 ---
 
 ## Instalação Rápida
-<img alt="Instalação Rápida" src="https://github.com/user-attachments/assets/64fdbca5-40d8-44af-9121-c48ab73d4101" />
-
 Para usar o SDK no seu projeto PHP, instale via Composer:
 
 ```bash
-composer require vsenna/ailos-sdk-php
 ```
-
-> Para mais informações acesse [**Instalação**](/ViniciusDeSenna/ailos-sdk-php/wiki/Instalação)
-
----
-
-## Documentação
-<img alt="Documentação" src="https://github.com/user-attachments/assets/2c0d9fb8-a0ef-40ab-bf6f-ddd778e2ddc0" />
-
-A documentação oficial do SDK já está disponível.
-
-Acesse agora: [**Documentação (Wiki)!**](https://github.com/ViniciusDeSenna/ailos-sdk-php/wiki)
-
----
-
-## Contribuir
-<img alt="ContribuindoBanner(2)" src="https://github.com/user-attachments/assets/313385f8-c938-4dde-854f-be96a6112f90" />
-
-🙌 Contribuições são sempre bem-vindas!
-
-Este SDK é desenvolvido com foco na comunidade — toda ajuda conta! Seja para sugerir melhorias, reportar bugs ou adicionar novas funcionalidades, sua colaboração faz a diferença. 💙
-
-> Para mais informações acesse [**Contribuir**](/ViniciusDeSenna/ailos-sdk-php/wiki/Instalação)
-
----
-
-## Segurança
-<img alt="Segurança" src="https://github.com/user-attachments/assets/5e6e8b07-d93d-4bf0-9d38-22e978b2418b" />
-
-Se você encontrar alguma vulnerabilidade de segurança, por favor reporte via [Issues](https://github.com/ViniciusDeSenna/ailos-sdk-php/issues) ou entre em contato diretamente.
-
 ---
 
 ## Licença
-<img alt="Licença" src="https://github.com/user-attachments/assets/78062c33-f91b-4c26-baff-1ab9f2af67c7" />
-
 Este projeto está licenciado sob os termos da [MIT License](LICENSE).
 
 ---
 
 ## Atividade
-<img alt="ContribuindoBanner(3)" src="https://github.com/user-attachments/assets/f2dd8685-5b69-4083-8e1d-f19963ca01e8" />
-
 ![Atividade Do Projeto](https://repobeats.axiom.co/api/embed/5f71511bd87ab4e7d8d980cd93c6c3ff2b0d3db5.svg "Repobeats analytics image")
 
 ---
 
 ## Contribuidores
-<img alt="Contribuidores" src="https://github.com/user-attachments/assets/13ee5cd9-6d43-42c3-b998-d412e8f8110a" />
-
 [![Contribuidores](https://contrib.rocks/image?repo=ViniciusDeSenna/ailos-sdk-php)](https://github.com/ViniciusDeSenna/ailos-sdk-php/graphs/contributors)
