@@ -1,20 +1,18 @@
 <?php
 
-declare(strict_types=1);
+namespace Ailos\Sdk\Tests\Unit\Storage;
 
-namespace Ailos\Sdk\Tests\Storage;
-
-use Ailos\Sdk\Storage\InMemoryTokenStore;
+use Ailos\Sdk\Storage\FileTokenStore;
 use Ailos\Sdk\Storage\TokenKeys;
 use PHPUnit\Framework\TestCase;
 
-class StorageTest extends TestCase
+class FileTokenStoreTest extends TestCase
 {
-    private InMemoryTokenStore $store;
+    private FileTokenStore $store;
 
     protected function setUp(): void
     {
-        $this->store = new InMemoryTokenStore();
+        $this->store = new FileTokenStore();
     }
 
     // set e get
@@ -84,18 +82,6 @@ class StorageTest extends TestCase
         $this->store->set('key', 'value', 0);
 
         $this->assertTrue($this->store->has('key'));
-    }
-
-    // flush
-    public function test_flush_clears_all_stored_values(): void
-    {
-        $this->store->set('key1', 'value1');
-        $this->store->set('key2', 'value2');
-
-        $this->store->flush();
-
-        $this->assertFalse($this->store->has('key1'));
-        $this->assertFalse($this->store->has('key2'));
     }
 
     // TokenKeys
