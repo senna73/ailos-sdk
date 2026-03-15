@@ -39,6 +39,7 @@ class FetchAccessTokenStep
         return new AccessToken(
             value: $response['access_token'],
             expiresIn: (int) ($response['expires_in'] ?? 3600),
+            tokenType: (string) ($response['token_type'] ?? ''),
         );
     }
 

@@ -13,7 +13,7 @@ class AccessToken
     public function __construct(
         private readonly string $value,
         private readonly int $expiresIn,
-        private readonly int $tokenType,
+        private readonly string $tokenType,
         private readonly DateTimeImmutable $createdAt = new DateTimeImmutable(),
     ) {
         $this->expiresAt = $this->createdAt->modify("+{$expiresIn} seconds");
@@ -37,5 +37,10 @@ class AccessToken
     public function bearerHeader(): string
     {
         return "{$this->tokenType} {$this->value}";
+    }
+
+    public function expiresIn(): int
+    {
+        return $this->expiresIn;
     }
 }

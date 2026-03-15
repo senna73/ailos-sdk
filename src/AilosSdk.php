@@ -18,7 +18,7 @@ use Ailos\Sdk\Http\AilosHttpClient;
 use Ailos\Sdk\Http\Contracts\HttpClientInterface;
 use Ailos\Sdk\Http\Environment;
 use Ailos\Sdk\Storage\Contracts\TokenStoreInterface;
-use Ailos\Sdk\Storage\InMemoryTokenStore;
+use Ailos\Sdk\Storage\FileTokenStore;
 
 class AilosSdk
 {
@@ -35,7 +35,7 @@ class AilosSdk
     ) {
         $env        = new Environment($environment);
         $http       = $httpClient ?? new AilosHttpClient();
-        $this->tokenStore = $tokenStore ?? new InMemoryTokenStore();
+        $this->tokenStore = $tokenStore ?? new FileTokenStore();
 
         $fetchAccessTokenStep      = new FetchAccessTokenStep($http, $env);
         $fetchAuthIdStep           = new FetchAuthIdStep($http, $env);
@@ -49,8 +49,6 @@ class AilosSdk
         );
 
         $this->tokenRefresher = new TokenRefresher(
-            httpClient:   $http,
-            environment:  $env,
             tokenStore:   $this->tokenStore,
             orchestrator: $this->orchestrator,
         );
@@ -70,20 +68,11 @@ class AilosSdk
     }
 
     /**
-     * Deve ser chamado pelo endpoint de callback da aplicação
-     * assim que o JWT (x-ailos-authentication) for recebido da Ailos.
-     */
-    public function handleCallback(string $jwt): void
-    {
-        $this->orchestrator->storeJwt($jwt);
-    }
-
-    /**
      * Retorna um handler pronto para processar o endpoint de callback.
      */
     public function callbackHandler(): CallbackHandler
     {
-        return new CallbackHandler($this);
+        return new CallbackHandler($this->tokenStore);
     }
 
     /**
@@ -126,18 +115,6 @@ class AilosSdk
      */
     public function logout(): void
     {
-        if ($this->tokenStore instanceof InMemoryTokenStore) {
-            $this->tokenStore->flush();
-        }
-    }
-
-    public function getOrchestrator(): AuthOrchestrator
-    {
-        return $this->orchestrator;
-    }
-
-    public function getClientCredentials(): ClientCredentials
-    {
-        return $this->clientCredentials;
+        $this->tokenStore->clear();
     }
 }

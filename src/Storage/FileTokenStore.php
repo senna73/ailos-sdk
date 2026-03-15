@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ailos\Sdk\Storage;
 
+use Ailos\Sdk\Exceptions\AilosSdkException;
 use Ailos\Sdk\Storage\Contracts\TokenStoreInterface;
 
 class FileTokenStore implements TokenStoreInterface
@@ -32,18 +33,20 @@ class FileTokenStore implements TokenStoreInterface
 
     public function set(string $key, mixed $value, int $ttl = 0): void
     {
+        $this->forget($key);
+
         $path    = $this->resolvePath($key);
         $tmpPath = $path . '.tmp.' . uniqid('', more_entropy: true);
 
         $written = file_put_contents($tmpPath, serialize($value), LOCK_EX);
 
         if ($written === false) {
-            throw new \RuntimeException("Falha ao escrever: $tmpPath");
+            throw new AilosSdkException("Falha ao escrever: $tmpPath");
         }
 
         if (!rename($tmpPath, $path)) {
             unlink($tmpPath);
-            throw new \RuntimeException("Falha ao salvar: $path");
+            throw new AilosSdkException("Falha ao salvar: $path");
         }
     }
 
