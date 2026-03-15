@@ -61,7 +61,11 @@ class FileTokenStore implements TokenStoreInterface
 
     public function clear(): void
     {
-        unlink(self::STORE_PATH);
+        foreach (glob(self::STORE_PATH . '*') as $file) {
+            if (is_file($file)) {
+                unlink($file);
+            }
+        }
     }
 
     public function has(string $key): bool
