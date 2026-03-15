@@ -8,17 +8,12 @@ use Ailos\Sdk\Auth\Credentials\ClientCredentials;
 use Ailos\Sdk\Auth\Credentials\CooperadoCredentials;
 use Ailos\Sdk\Auth\Tokens\JwtToken;
 use Ailos\Sdk\Exceptions\AuthenticationException;
-use Ailos\Sdk\Exceptions\TokenExpiredException;
-use Ailos\Sdk\Http\Contracts\HttpClientInterface;
-use Ailos\Sdk\Http\Environment;
 use Ailos\Sdk\Storage\Contracts\TokenStoreInterface;
 use Ailos\Sdk\Storage\TokenKeys;
 
 class TokenRefresher
 {
     public function __construct(
-        private readonly HttpClientInterface  $httpClient,
-        private readonly Environment          $environment,
         private readonly TokenStoreInterface  $tokenStore,
         private readonly AuthOrchestrator     $orchestrator,
     ) {
@@ -41,53 +36,23 @@ class TokenRefresher
         }
 
         if ($jwt->canRefresh()) {
-            return $this->refresh($clientCredentials, $jwt);
+            return $this->refresh($cooperadoCredentials);
         }
 
         return $this->forceReAuthentication($clientCredentials, $cooperadoCredentials);
     }
 
     public function refresh(
-        ClientCredentials $clientCredentials,
-        JwtToken          $jwt,
+        CooperadoCredentials $cooperadoCredentials,
     ): JwtToken {
-        $accessToken = $this->orchestrator->resolveAccessToken($clientCredentials);
-
-        try {
-            $response = $this->httpClient->get(
-                url: $this->environment->refreshUrl(urlencode($jwt->value())),
-                headers: [
-                    "Authorization: {$accessToken->bearerHeader()}",
-                ],
-            );
-        } catch (\Throwable $e) {
-            throw TokenExpiredException::jwtExpiredAndCannotRefresh();
-        }
-
-        $newJwtValue = $response['raw'] ?? $response['token'] ?? '';
-
-        if (empty($newJwtValue)) {
-            throw TokenExpiredException::jwtExpiredAndCannotRefresh();
-        }
-
-        $newJwt = new JwtToken($newJwtValue);
-
-        $this->tokenStore->set(
-            key:   TokenKeys::JWT,
-            value: $newJwt,
-            ttl:   1800,
-        );
-
-        return $newJwt;
+        $this->orchestrator->resolveJwt($cooperadoCredentials);
+        return $this->tokenStore->get(TokenKeys::JWT);
     }
 
     private function forceReAuthentication(
         ClientCredentials    $clientCredentials,
         CooperadoCredentials $cooperadoCredentials,
     ): JwtToken {
-        $this->tokenStore->forget(TokenKeys::JWT);
-        $this->tokenStore->forget(TokenKeys::ACCESS_TOKEN);
-
         $this->orchestrator->run($clientCredentials, $cooperadoCredentials);
 
         $jwt = $this->tokenStore->get(TokenKeys::JWT);

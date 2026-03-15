@@ -11,6 +11,7 @@ use Ailos\Sdk\Auth\Steps\FetchAccessTokenStep;
 use Ailos\Sdk\Auth\Steps\FetchAuthIdStep;
 use Ailos\Sdk\Auth\Tokens\AccessToken;
 use Ailos\Sdk\Auth\Tokens\AuthId;
+use Ailos\Sdk\Exceptions\AuthenticationException;
 use Ailos\Sdk\Storage\Contracts\TokenStoreInterface;
 use Ailos\Sdk\Storage\TokenKeys;
 
@@ -28,43 +29,37 @@ class AuthOrchestrator
         ClientCredentials    $clientCredentials,
         CooperadoCredentials $cooperadoCredentials,
     ): void {
-        $accessToken = $this->resolveAccessToken($clientCredentials);
-        $authId      = $this->resolveAuthId($accessToken, $cooperadoCredentials);
-
-        $this->authenticateCooperadoStep->execute(
-            accessToken:  $accessToken,
-            authId:       $authId,
-            credentials:  $cooperadoCredentials,
-        );
+        $this->resolveAccessToken($clientCredentials);
+        $this->resolveAuthId($cooperadoCredentials);
+        $this->resolveJwt($cooperadoCredentials);
     }
 
-    public function resolveAccessToken(ClientCredentials $credentials): AccessToken
+    public function resolveAccessToken(ClientCredentials $credentials): void
     {
         $cached = $this->tokenStore->get(TokenKeys::ACCESS_TOKEN);
 
         if ($cached instanceof AccessToken && !$cached->isExpired()) {
-            return $cached;
+            return;
         }
 
         $accessToken = $this->fetchAccessTokenStep->execute($credentials);
 
         $this->tokenStore->set(
             key:   TokenKeys::ACCESS_TOKEN,
-            value: $accessToken,
-            ttl:   3600,
+            value: $accessToken
         );
-
-        return $accessToken;
     }
 
     public function resolveAuthId(
-        AccessToken          $accessToken,
         CooperadoCredentials $credentials,
-    ): AuthId {
+    ): void {
+
+        $accessToken = $this->tokenStore->get(TokenKeys::ACCESS_TOKEN);
+
         $cached = $this->tokenStore->get(TokenKeys::AUTH_ID);
 
         if ($cached instanceof AuthId) {
-            return $cached;
+            return;
         }
 
         $authId = $this->fetchAuthIdStep->execute($accessToken, $credentials);
@@ -72,20 +67,36 @@ class AuthOrchestrator
         $this->tokenStore->set(
             key:   TokenKeys::AUTH_ID,
             value: $authId,
-            ttl:   0,
         );
-
-        return $authId;
     }
 
-    public function storeJwt(string $jwtValue): void
+    public function resolveJwt(CooperadoCredentials $cooperadoCredentials): void
     {
-        $jwt = new \Ailos\Sdk\Auth\Tokens\JwtToken($jwtValue);
+        $accessToken = $this->tokenStore->get(TokenKeys::ACCESS_TOKEN);
+        $authId = $this->tokenStore->get(TokenKeys::AUTH_ID);
 
-        $this->tokenStore->set(
-            key:   TokenKeys::JWT,
-            value: $jwt,
-            ttl:   1800,
+        $this->authenticateCooperadoStep->execute(
+            accessToken:  $accessToken,
+            authId:       $authId,
+            credentials:  $cooperadoCredentials,
         );
+
+        $this->waitForJwt();
+    }
+
+    private function waitForJwt(int $timeoutMs = 10000): void
+    {
+        $deadline = microtime(true) + ($timeoutMs / 1000);
+
+        while (microtime(true) < $deadline) {
+            $jwt = $this->tokenStore->get(TokenKeys::JWT);
+
+            if ($jwt && !$jwt->isExpired()) {
+                return;
+            }
+            usleep(200_000);
+        }
+
+        throw new AuthenticationException("JWT não foi recebido no callback dentro de {$timeoutMs}ms.");
     }
 }

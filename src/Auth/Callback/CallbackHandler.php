@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Ailos\Sdk\Auth\Callback;
 
-use Ailos\Sdk\AilosSdk;
+use Ailos\Sdk\Auth\Tokens\JwtToken;
+use Ailos\Sdk\Storage\Contracts\TokenStoreInterface;
+use Ailos\Sdk\Storage\TokenKeys;
 
 class CallbackHandler
 {
     public function __construct(
-        private readonly AilosSdk $sdk,
+        private readonly TokenStoreInterface $tokenStore,
     ) {
     }
 
@@ -54,6 +56,7 @@ class CallbackHandler
 
     private function process(CallbackPayload $payload): void
     {
-        $this->sdk->handleCallback($payload->code());
+        $jwt = new JwtToken($payload->code());
+        $this->tokenStore->set(TokenKeys::JWT, $jwt);
     }
 }

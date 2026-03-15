@@ -8,7 +8,6 @@ use Ailos\Sdk\Auth\Credentials\CooperadoCredentials;
 use Ailos\Sdk\Auth\Tokens\AccessToken;
 use Ailos\Sdk\Auth\Tokens\AuthId;
 use Ailos\Sdk\Exceptions\AuthenticationException;
-use Ailos\Sdk\Exceptions\InvalidCredentialsException;
 use Ailos\Sdk\Http\Contracts\HttpClientInterface;
 use Ailos\Sdk\Http\Environment;
 
@@ -43,12 +42,12 @@ class AuthenticateCooperadoStep
     private function assertValidResponse(array $response): void
     {
         $status = $response['_status_code'] ?? 0;
-        $body   = $response['body'] ?? '';
+        $body   = $response['raw'] ?? '';
 
         $error = $this->extractHtmlError($body);
 
         if ($error !== null) {
-            throw InvalidCredentialsException::invalidCooperadoCredentials($error);
+            throw AuthenticationException::failedToAuthenticateCooperado($error);
         }
 
         if ($status >= 400) {

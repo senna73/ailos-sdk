@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ailos\Sdk\Tests\Unit\Storage;
 
 use Ailos\Sdk\Storage\FileTokenStore;
@@ -30,7 +32,7 @@ class FileTokenStoreTest extends TestCase
 
         $this->store->set('obj', $object);
 
-        $this->assertSame($object, $this->store->get('obj'));
+        $this->assertEquals($object, $this->store->get('obj'));
     }
 
     public function test_returns_null_for_nonexistent_key(): void
