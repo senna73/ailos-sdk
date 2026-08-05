@@ -1,0 +1,10 @@
+.git
+.gitignore
+vendor
+node_modules
+.env
+.env.*
+docker-compose.yml
+Dockerfile
+.dockerignore
+*.md

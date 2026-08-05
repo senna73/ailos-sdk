@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Ailos\Sdk\Entities;
+
+class AccessTokenEntity extends Entity
+{
+    public function __construct(
+        public readonly string $accessToken,
+        public readonly string $tokenType,
+        public readonly int $expiresIn,
+        public readonly string $scope,
+    ) {
+    }
+}

@@ -1,0 +1,56 @@
+{
+    "name": "ailos/sdk",
+    "description": "Este SDK foi desenvolvido para facilitar a integração com os serviços da Cooperativa Ailos, oferecendo uma interface simples, segura e eficiente para desenvolvedores PHP.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vinícius de Senna",
+            "email": "sennadevinicius@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.5",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "cuyz/valinor": "^2.5",
+        "php-curl-class/php-curl-class": "^13.0",
+        "symfony/cache": "^8.1"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^11.0",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ailos\\Sdk\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ailos\\Sdk\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test:unit": "vendor/bin/phpunit -c qa/phpunit.xml --testsuite Unit",
+        "test:integration": "vendor/bin/phpunit -c qa/phpunit.xml --testsuite Integration",
+        "test:all": "vendor/bin/phpunit -c qa/phpunit.xml",
+        "cs-check": "vendor/bin/php-cs-fixer fix --dry-run --diff --config=qa/.php-cs-fixer.php",
+        "cs-fix": "vendor/bin/php-cs-fixer fix --config=qa/.php-cs-fixer.php",
+        "phpstan": "vendor/bin/phpstan analyse -c qa/phpstan.neon",
+        "quality": [
+            "@phpstan",
+            "@cs-check",
+            "@test:all"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

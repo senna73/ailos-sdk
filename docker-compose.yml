@@ -1,0 +1,9 @@
+services:
+  app:
+    container_name: ailos-sdk
+    build: .
+    volumes:
+      - .:/app
+    working_dir: /app
+    tty: true
+    stdin_open: true
