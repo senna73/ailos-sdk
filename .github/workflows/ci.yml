@@ -28,8 +28,14 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
+      - name: Lint PHP syntax
+        run: composer lint
+
       - name: Check code style
         run: composer cs-check
+
+      - name: Run PHPStan
+        run: composer phpstan
 
       - name: Run unit tests
         run: composer test:unit
@@ -62,4 +68,4 @@ jobs:
           AILOS_CODIGO_COOPERATIVA: ${{ secrets.AILOS_CODIGO_COOPERATIVA }}
           AILOS_CODIGO_CONTA: ${{ secrets.AILOS_CODIGO_CONTA }}
           AILOS_SENHA: ${{ secrets.AILOS_SENHA }}
-        run: php vendor/bin/phpunit -c qa/phpunit.xml --testsuite Integration
+        run: php vendor/bin/phpunit -c phpunit.xml --testsuite Integration

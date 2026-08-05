@@ -35,15 +35,17 @@
         }
     },
     "scripts": {
-        "test:unit": "vendor/bin/phpunit -c qa/phpunit.xml --testsuite Unit",
-        "test:integration": "vendor/bin/phpunit -c qa/phpunit.xml --testsuite Integration",
-        "test:all": "vendor/bin/phpunit -c qa/phpunit.xml",
-        "cs-check": "vendor/bin/php-cs-fixer fix --dry-run --diff --config=qa/.php-cs-fixer.php",
-        "cs-fix": "vendor/bin/php-cs-fixer fix --config=qa/.php-cs-fixer.php",
-        "phpstan": "vendor/bin/phpstan analyse -c qa/phpstan.neon",
+        "lint": "find src tests -type f -name '*.php' -print0 | xargs -0 -n1 php -l",
+        "test:unit": "vendor/bin/phpunit -c phpunit.xml --testsuite Unit",
+        "test:integration": "vendor/bin/phpunit -c phpunit.xml --testsuite Integration",
+        "test:all": "vendor/bin/phpunit -c phpunit.xml",
+        "cs-check": "vendor/bin/php-cs-fixer fix --dry-run --diff --config=.php-cs-fixer.php",
+        "cs-fix": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php",
+        "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon",
         "quality": [
-            "@phpstan",
+            "@lint",
             "@cs-check",
+            "@phpstan",
             "@test:all"
         ]
     },
