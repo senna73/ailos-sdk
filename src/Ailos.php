@@ -6,11 +6,14 @@ namespace Ailos\Sdk;
 
 use Ailos\Sdk\Collections\BoletoCollection;
 use Ailos\Sdk\Entities\BoletoEntity;
+use Ailos\Sdk\Entities\EnviromentEntity;
 use Ailos\Sdk\Entities\JwtEntity;
 use Ailos\Sdk\Support\Storage;
 
 class Ailos
 {
+    public function __construct(private readonly EnviromentEntity $enviroment) {}
+
     public static function handleJwtCallback(\stdClass $payload): void
     {
         $storage = Storage::storage();
@@ -23,8 +26,8 @@ class Ailos
         $storage->save($item);
     }
 
-    public static function consultarUnicoBoleto(string $convenio, string $numero): BoletoEntity 
+    public function consultarUnicoBoleto(string $convenio, string $numero): BoletoEntity 
     {
-        return new BoletoCollection()->consultarUnicoBoleto($convenio, $numero);
+        return new BoletoCollection($this->enviroment)->consultarUnicoBoleto($convenio, $numero);
     }
 }

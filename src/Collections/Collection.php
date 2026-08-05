@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ailos\Sdk\Collections;
 
 use Ailos\Sdk\Entities\AccessTokenEntity;
+use Ailos\Sdk\Entities\EnviromentEntity;
 use Ailos\Sdk\Entities\JwtEntity;
 use Ailos\Sdk\Support\HttpClient;
 use Ailos\Sdk\Support\Storage;
@@ -14,37 +15,23 @@ use Symfony\Contracts\Cache\ItemInterface;
 
 abstract readonly class Collection
 {
-    private const array URLS = [
-        'homol' => 'https://apiendpointhml.ailos.coop.br',
-        'prod'  => 'https://apiendpoint.ailos.coop.br',
-    ];
-
     protected FilesystemAdapter $storage;
     
-    protected AuthCollection $authCollection;
-
     protected HttpClient $httpClient;
 
-    protected string $environment;
+    protected AuthCollection $authCollection;
 
-    public function __construct()
-    {
+    public function __construct(
+        protected EnviromentEntity $enviroment
+    ) {
         $this->storage = Storage::storage();
-        $this->authCollection = new AuthCollection();
         $this->httpClient = new HttpClient();
-
-        $this->environment = $_ENV['AILOS_ENVIRONMENT'] ?? 'homol';
-
-        if (!array_key_exists($this->environment, self::URLS)) {
-            throw new InvalidArgumentException(
-                "Invalid environment '{$this->environment}'. Allowed: " . implode(', ', array_keys(self::URLS))
-            );
-        }
+        $this->authCollection = new AuthCollection($enviroment);
     }
 
     public function getBaseUrl(): string
     {
-        return self::URLS[$this->environment];
+        return $this->enviroment->getBaseUrl();
     }
 
     private function getAccessToken(): AccessTokenEntity
