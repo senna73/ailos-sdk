@@ -14,14 +14,14 @@ class EnviromentEntity extends Entity
     ];
 
     public function __construct(
-        private readonly string $consumerKey,
-        private readonly string $consumerSecret,
-        private readonly string $urlCallback,
-        private readonly string $developerKey,
-        private readonly string $codigoCooperativa,
-        private readonly string $codigoConta,
-        private readonly string $senha,
-        private readonly string $ambiente = 'homol'
+        public readonly string $consumerKey,
+        public readonly string $consumerSecret,
+        public readonly string $urlCallback,
+        public readonly string $developerKey,
+        public readonly string $codigoCooperativa,
+        public readonly string $codigoConta,
+        public readonly string $senha,
+        public readonly string $ambiente = 'homol'
     ) {
         if (!array_key_exists($this->ambiente, self::URLS)) {
             throw new InvalidArgumentException(
