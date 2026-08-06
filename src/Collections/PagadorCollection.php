@@ -10,7 +10,7 @@ readonly class PagadorCollection extends Collection
 {
     public function cadastrarPagador(string $accessToken, string $jwt, PagadorEntity $pagador): void
     {
-        $response = $this->httpClient->post(
+        $this->httpClient->post(
             $this->getBaseUrl() . '/ailos/cobranca/api/v1/pagadores/cadastrar',
             [
                 'x-ailos-authentication' => $jwt,
@@ -18,7 +18,5 @@ readonly class PagadorCollection extends Collection
             ],
             json_decode(json_encode($pagador), true)
         );
-
-        var_dump($response);
     }
 }

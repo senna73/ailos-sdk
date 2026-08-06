@@ -6,16 +6,20 @@ namespace Ailos\Sdk\Collections;
 
 use Ailos\Sdk\Entities\BoletoEntity;
 use Ailos\Sdk\Entities\BoletoLoteEntity;
+use DomainException;
 
 readonly class BoletoCollection extends Collection
 {
     public function consultarUnicoBoleto(string $convenio, string $numero): BoletoEntity
     {
-        /** @var \stdClass $response */
         $response = $this->httpClient->get(
             $this->getBaseUrl() . "/ailos/cobranca/api/v2/boletos/consultar/boleto/convenios/{$convenio}/{$numero}",
             $this->getAuthHeader()
         );
+
+        if (!($response instanceof \stdClass)) {
+            throw new DomainException('Tipo de retorno incorreto');
+        }
 
         return BoletoEntity::fromObject($response);
     }

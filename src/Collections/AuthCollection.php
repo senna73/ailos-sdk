@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Ailos\Sdk\Collections;
 
 use Ailos\Sdk\Entities\AccessTokenEntity;
+use DomainException;
 
 readonly class AuthCollection extends Collection
 {
     public function authAccessTokenEndpoint(string $consumerKey, string $consumerSecret): AccessTokenEntity
     {
-        /** @var \stdClass $response */
         $response = $this->httpClient->post(
             $this->getBaseUrl() . '/token',
             [
@@ -22,12 +22,15 @@ readonly class AuthCollection extends Collection
             ]
         );
 
+        if (!($response instanceof \stdClass)) {
+            throw new DomainException('Tipo de retorno incorreto');
+        }
+
         return AccessTokenEntity::fromObject($response);
     }
 
     public function authIdEndpoint(string $accessToken, string $urlCallback, string $ailosApiKeyDeveloper, string $state): string
     {
-        /** @var string $response */
         $response = $this->httpClient->post(
             $this->getBaseUrl() . '/ailos/identity/api/v1/autenticacao/login/obter/id',
             [
@@ -42,12 +45,15 @@ readonly class AuthCollection extends Collection
             ]
         );
 
+        if (!is_string($response)) {
+            throw new DomainException('Tipo de retorno incorreto');
+        }
+
         return $response;
     }
 
     public function authJwtEndpoint(string $accessToken, string $id, int $loginCodigoCooperativa, string $loginCodigoConta, string $loginSenha): void
     {
-        /** @var string $response */
         $response = $this->httpClient->post(
             $this->getBaseUrl() . "/ailos/identity/api/v1/login/index?id={$id}",
             [
@@ -60,6 +66,10 @@ readonly class AuthCollection extends Collection
             ]
         );
 
+        if (!is_string($response)) {
+            throw new DomainException('Tipo de retorno incorreto');
+        }
+
         libxml_use_internal_errors(true);
 
         $dom = new \DOMDocument();
@@ -69,11 +79,17 @@ readonly class AuthCollection extends Collection
 
         $nodes = $xpath->query("//div[contains(@class,'validation-summary-errors')]//li");
 
-        if ($nodes !== null && $nodes->length > 0 && $nodes->item(0) !== null) {
-            $message = trim($nodes->item(0)->textContent);
+        // Fix: Valida se $nodes é uma instância válida de DOMNodeList e possui itens
+        if ($nodes instanceof \DOMNodeList && $nodes->length > 0) {
+            $firstNode = $nodes->item(0);
 
-            if ($message !== '') {
-                throw new \RuntimeException('Erro ao tentar gerar o JWT. ' . $message);
+            // Fix: Garante para o PHPStan que o nó retornado é do tipo DOMNode
+            if ($firstNode instanceof \DOMNode) {
+                $message = trim($firstNode->textContent);
+
+                if ($message !== '') {
+                    throw new \RuntimeException('Erro ao tentar gerar o JWT. ' . $message);
+                }
             }
         }
     }
