@@ -14,7 +14,7 @@ readonly class HttpClient
     ) {
         $this->curl = new Curl();
     }
-    
+
     public function post(string $url, array $headers = [], array $data = []): mixed
     {
         foreach ($headers as $name => $value) {

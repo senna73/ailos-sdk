@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ailos\Sdk\Tests\Integration\Collections;
 
-use Ailos\Sdk\Collections\BoletoCollection;
 use Ailos\Sdk\Entities\BoletoEntity;
 use Ailos\Sdk\Entities\ConvenioCobrancaEntity;
 use PHPUnit\Framework\TestCase;

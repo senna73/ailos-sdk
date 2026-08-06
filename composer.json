@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^8.5",
+        "php": "^8.4",
         "ext-curl": "*",
         "ext-dom": "*",
         "ext-libxml": "*",

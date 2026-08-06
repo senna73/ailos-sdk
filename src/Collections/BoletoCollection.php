@@ -9,8 +9,8 @@ use Ailos\Sdk\Entities\BoletoLoteEntity;
 
 readonly class BoletoCollection extends Collection
 {
-    public function consultarUnicoBoleto(string $convenio, string $numero): BoletoEntity 
-    {    
+    public function consultarUnicoBoleto(string $convenio, string $numero): BoletoEntity
+    {
         /** @var \stdClass $response */
         $response = $this->httpClient->get(
             $this->getBaseUrl() . "/ailos/cobranca/api/v2/boletos/consultar/boleto/convenios/{$convenio}/{$numero}",
@@ -20,7 +20,7 @@ readonly class BoletoCollection extends Collection
         return BoletoEntity::fromObject($response);
     }
 
-    public function gerarUnicoBoleto(string $convenio, BoletoEntity $boleto): void 
+    public function gerarUnicoBoleto(string $convenio, BoletoEntity $boleto): void
     {
         $this->httpClient->post(
             $this->getBaseUrl() . "/ailos/cobranca/api/v2/boletos/gerar/boleto/convenios/{$convenio}",
@@ -29,7 +29,7 @@ readonly class BoletoCollection extends Collection
         );
     }
 
-    public function gerarLoteBoletos(string $convenio, BoletoLoteEntity $lote): void 
+    public function gerarLoteBoletos(string $convenio, BoletoLoteEntity $lote): void
     {
         $this->httpClient->post(
             $this->getBaseUrl() . "/ailos/cobranca/api/v2/boletos/gerar/boleto/convenios/{$convenio}",
@@ -38,6 +38,5 @@ readonly class BoletoCollection extends Collection
         );
     }
 
-    
-}
 
+}

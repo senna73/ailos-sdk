@@ -8,7 +8,8 @@ use Ailos\Sdk\Entities\PagadorEntity;
 
 readonly class PagadorCollection extends Collection
 {
-    public function cadastrarPagador(string $accessToken, string $jwt, PagadorEntity $pagador): void {
+    public function cadastrarPagador(string $accessToken, string $jwt, PagadorEntity $pagador): void
+    {
         $response = $this->httpClient->post(
             $this->getBaseUrl() . '/ailos/cobranca/api/v1/pagadores/cadastrar',
             [
@@ -21,4 +22,3 @@ readonly class PagadorCollection extends Collection
         var_dump($response);
     }
 }
-

@@ -12,7 +12,9 @@ use Ailos\Sdk\Support\Storage;
 
 class Ailos
 {
-    public function __construct(private readonly EnviromentEntity $enviroment) {}
+    public function __construct(private readonly EnviromentEntity $enviroment)
+    {
+    }
 
     public static function handleJwtCallback(\stdClass $payload): void
     {
@@ -26,7 +28,7 @@ class Ailos
         $storage->save($item);
     }
 
-    public function consultarUnicoBoleto(string $convenio, string $numero): BoletoEntity 
+    public function consultarUnicoBoleto(string $convenio, string $numero): BoletoEntity
     {
         return new BoletoCollection($this->enviroment)->consultarUnicoBoleto($convenio, $numero);
     }

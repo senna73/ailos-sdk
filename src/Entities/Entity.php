@@ -10,10 +10,10 @@ use CuyZ\Valinor\Mapper\Source\Source;
 use CuyZ\Valinor\Mapper\TreeMapper;
 use CuyZ\Valinor\MapperBuilder;
 
-abstract class Entity {
-    
+abstract class Entity
+{
     private static ?TreeMapper $mapper = null;
-    
+
     public static function fromObject(object $data): static
     {
         try {

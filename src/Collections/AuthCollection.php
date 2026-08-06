@@ -18,13 +18,13 @@ readonly class AuthCollection extends Collection
                 'Content-Type' => 'application/x-www-form-urlencoded',
             ],
             [
-                'grant_type' => 'client_credentials'
+                'grant_type' => 'client_credentials',
             ]
         );
 
         return AccessTokenEntity::fromObject($response);
     }
-    
+
     public function authIdEndpoint(string $accessToken, string $urlCallback, string $ailosApiKeyDeveloper, string $state): string
     {
         /** @var string $response */
@@ -33,12 +33,12 @@ readonly class AuthCollection extends Collection
             [
                 'Content-Type' => 'application/json',
                 'Accept' => 'text/plain',
-                'Authorization' => 'Bearer ' . $accessToken
+                'Authorization' => 'Bearer ' . $accessToken,
             ],
             [
                 'urlCallback' => $urlCallback,
                 'ailosApiKeyDeveloper' => $ailosApiKeyDeveloper,
-                'state' => $state
+                'state' => $state,
             ]
         );
 
@@ -51,12 +51,12 @@ readonly class AuthCollection extends Collection
         $response = $this->httpClient->post(
             $this->getBaseUrl() . "/ailos/identity/api/v1/login/index?id={$id}",
             [
-                'Authorization' => 'Bearer ' . $accessToken
+                'Authorization' => 'Bearer ' . $accessToken,
             ],
             [
                 'Login.CodigoCooperativa' => $loginCodigoCooperativa,
                 'Login.CodigoConta' => $loginCodigoConta,
-                'Login.Senha' => $loginSenha
+                'Login.Senha' => $loginSenha,
             ]
         );
 
@@ -78,4 +78,3 @@ readonly class AuthCollection extends Collection
         }
     }
 }
-

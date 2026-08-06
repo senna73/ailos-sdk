@@ -9,14 +9,13 @@ use Ailos\Sdk\Entities\EnviromentEntity;
 use Ailos\Sdk\Entities\JwtEntity;
 use Ailos\Sdk\Support\HttpClient;
 use Ailos\Sdk\Support\Storage;
-use InvalidArgumentException;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Contracts\Cache\ItemInterface;
 
 abstract readonly class Collection
 {
     protected FilesystemAdapter $storage;
-    
+
     protected HttpClient $httpClient;
 
     protected AuthCollection $authCollection;
@@ -55,8 +54,8 @@ abstract readonly class Collection
             'id',
             function (ItemInterface $item) {
                 $id = $this->authCollection->authIdEndpoint(
-                    $this->getAccessToken()->accessToken, 
-                    $_ENV['AILOS_URL_CALLBACK'], 
+                    $this->getAccessToken()->accessToken,
+                    $_ENV['AILOS_URL_CALLBACK'],
                     $_ENV['AILOS_API_KEY_DEVELOPER'],
                     ''
                 );
