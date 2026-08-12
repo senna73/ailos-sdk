@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ailos\Sdk\Entities;
 
 use Ailos\Sdk\Framework\Entity;
-
 use InvalidArgumentException;
 
 class EnviromentEntity extends Entity

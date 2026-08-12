@@ -12,20 +12,19 @@ use PHPUnit\Framework\TestCase;
 
 class AuthCollectionTest extends TestCase
 {
-    
     private EnviromentEntity $enviroment;
-    
+
     private AuthCollection $authCollection;
-    
+
     private Dotenv $dotenv;
-    
+
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->dotenv = Dotenv::createImmutable(__DIR__ . '/../../..', '.env.test');
         $this->dotenv->load();
-        
+
         $this->enviroment = new EnviromentEntity(
             getenv('AILOS_CONSUMER_KEY') ?: '',
             getenv('AILOS_CONSUMER_SECRET') ?: '',
@@ -38,7 +37,7 @@ class AuthCollectionTest extends TestCase
 
         $this->authCollection = new AuthCollection($this->enviroment);
     }
-      
+
     public function testAuthAccessTokenEndpoint(): void
     {
         $accessToken = $this->authCollection->authAccessTokenEndpoint(
