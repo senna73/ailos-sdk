@@ -29,7 +29,7 @@ readonly class BoletoCollection extends Collection
         $this->httpClient->post(
             $this->getBaseUrl() . "/ailos/cobranca/api/v2/boletos/gerar/boleto/convenios/{$convenio}",
             $this->getAuthHeader(),
-            json_decode(json_encode($boleto), true)
+            $boleto::toArray()
         );
     }
 
@@ -38,7 +38,7 @@ readonly class BoletoCollection extends Collection
         $this->httpClient->post(
             $this->getBaseUrl() . "/ailos/cobranca/api/v2/boletos/gerar/boleto/convenios/{$convenio}",
             $this->getAuthHeader(),
-            json_decode(json_encode($lote), true)
+            $lote::toArray()
         );
     }
 

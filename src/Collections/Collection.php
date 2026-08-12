@@ -39,8 +39,8 @@ abstract readonly class Collection
             'access_token',
             function (ItemInterface $item) {
                 $accessToken = $this->authCollection->authAccessTokenEndpoint(
-                    $_ENV['AILOS_CONSUMER_KEY'],
-                    $_ENV['AILOS_CONSUMER_SECRET']
+                    $this->enviroment->consumerKey,
+                    $this->enviroment->consumerSecret
                 );
                 $item->expiresAfter($accessToken->expiresIn);
                 return $accessToken;
@@ -55,8 +55,8 @@ abstract readonly class Collection
             function (ItemInterface $item) {
                 $id = $this->authCollection->authIdEndpoint(
                     $this->getAccessToken()->accessToken,
-                    $_ENV['AILOS_URL_CALLBACK'],
-                    $_ENV['AILOS_API_KEY_DEVELOPER'],
+                    $this->enviroment->urlCallback,
+                    $this->enviroment->developerKey,
                     ''
                 );
                 $item->expiresAfter(3600);
@@ -70,9 +70,9 @@ abstract readonly class Collection
         $this->authCollection->authJwtEndpoint(
             $this->getAccessToken()->accessToken,
             $this->getId(),
-            $_ENV['AILOS_CODIGO_COOPERATIVA'],
-            $_ENV['AILOS_CODIGO_CONTA'],
-            $_ENV['AILOS_SENHA']
+            $this->enviroment->codigoCooperativa,
+            $this->enviroment->codigoConta,
+            $this->enviroment->senha
         );
 
         $startTime = microtime(true);
@@ -81,7 +81,12 @@ abstract readonly class Collection
             $item = $this->storage->getItem('jwt');
 
             if ($item->isHit()) {
-                return $item->get();
+                $item = $item->get();
+                
+                if (!($item instanceof JwtEntity)) {
+                    throw new \RuntimeException('Item obtido com tipagem errada');
+                }
+                return $item;
             }
 
             if ((microtime(true) - $startTime) >= $timeoutSeconds) {
@@ -92,6 +97,12 @@ abstract readonly class Collection
         }
     }
 
+    /**
+     * @return array{
+     *  x-ailos-authentication: string,
+     *  Authorization: string
+     * }
+     */
     public function getAuthHeader(): array
     {
         return [

@@ -9,6 +9,7 @@ use CuyZ\Valinor\Mapper\MappingError;
 use CuyZ\Valinor\Mapper\Source\Source;
 use CuyZ\Valinor\Mapper\TreeMapper;
 use CuyZ\Valinor\MapperBuilder;
+use InvalidArgumentException;
 
 abstract class Entity
 {
@@ -17,12 +18,19 @@ abstract class Entity
     public static function fromObject(object $data): static
     {
         try {
-            return self::mapper()->map(static::class, Source::json(json_encode($data)));
+            $data = json_encode($data);
+            if (!$data) {
+                throw new \RuntimeException('Falha na codificação dos dados');
+            }
+            return self::mapper()->map(static::class, Source::json($data));
         } catch (MappingError $error) {
             throw new \InvalidArgumentException($error->getMessage(), previous: $error);
         }
     }
 
+    /**
+     * @param array<string, mixed> $data 
+     */
     public static function fromArray(array $data): static
     {
         try {
@@ -33,6 +41,18 @@ abstract class Entity
                 previous: $error,
             );
         }
+    }
+
+    /**
+     * @return array<mixed, mixed>
+     */
+    public static function toArray(): array
+    {
+        $data = json_encode(static::class);
+        if ($data) {
+            return (array) json_decode($data, true);
+        }
+        throw new \RuntimeException('Erro ao converter a entidade para array');
     }
 
     private static function mapper(): TreeMapper

@@ -16,7 +16,7 @@ readonly class PagadorCollection extends Collection
                 'x-ailos-authentication' => $jwt,
                 'Authorization' => 'Bearer ' . $accessToken,
             ],
-            json_decode(json_encode($pagador), true)
+            $pagador::toArray()
         );
     }
 }

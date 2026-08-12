@@ -52,7 +52,7 @@ readonly class AuthCollection extends Collection
         return $response;
     }
 
-    public function authJwtEndpoint(string $accessToken, string $id, int $loginCodigoCooperativa, string $loginCodigoConta, string $loginSenha): void
+    public function authJwtEndpoint(string $accessToken, string $id, string $loginCodigoCooperativa, string $loginCodigoConta, string $loginSenha): void
     {
         $response = $this->httpClient->post(
             $this->getBaseUrl() . "/ailos/identity/api/v1/login/index?id={$id}",

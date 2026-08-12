@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ailos\Sdk\Support;
 
 use Curl\Curl;
+use RuntimeException;
 
 readonly class HttpClient
 {
@@ -15,6 +16,11 @@ readonly class HttpClient
         $this->curl = new Curl();
     }
 
+    /**
+     * @param array<mixed, mixed> $headers 
+     * @param array<mixed, mixed> $data 
+     * @throws RuntimeException 
+     */
     public function post(string $url, array $headers = [], array $data = []): mixed
     {
         foreach ($headers as $name => $value) {
@@ -24,12 +30,21 @@ readonly class HttpClient
         $this->curl->post($url, $data);
 
         if ($this->curl->error) {
-            throw new \RuntimeException($this->curl->errorMessage);
+            if (is_string($this->curl->errorMessage)) {
+                throw new \RuntimeException($this->curl->errorMessage);
+            }
+
+            throw new \RuntimeException("Erro desconhecido no cliente Http");
         }
 
         return $this->curl->response;
     }
 
+    /**
+     * @param array<mixed, mixed> $headers 
+     * @param array<mixed, mixed> $query 
+     * @throws RuntimeException 
+     */
     public function get(string $url, array $headers = [], array $query = []): mixed
     {
         foreach ($headers as $name => $value) {
@@ -39,7 +54,11 @@ readonly class HttpClient
         $this->curl->get($url, $query);
 
         if ($this->curl->error) {
-            throw new \RuntimeException($this->curl->errorMessage);
+            if (is_string($this->curl->errorMessage)) {
+                throw new \RuntimeException($this->curl->errorMessage);
+            }
+
+            throw new \RuntimeException("Erro desconhecido no cliente Http");
         }
 
         return $this->curl->response;
