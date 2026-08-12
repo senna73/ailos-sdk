@@ -32,8 +32,13 @@ class AuthCollectionTest extends TestCase
             getenv('AILOS_API_KEY_DEVELOPER') ?: '',
             getenv('AILOS_CODIGO_COOPERATIVA') ?: '',
             getenv('AILOS_CODIGO_CONTA') ?: '',
-            getenv('AILOS_SENHA') ?: ''
+            getenv('AILOS_SENHA') ?: '',
+
         );
+
+        if ($this->enviroment->ambiente != 'homol') {
+            throw new \Exception('Ambiente invalido para testes');
+        }
 
         $this->authCollection = new AuthCollection($this->enviroment);
     }
