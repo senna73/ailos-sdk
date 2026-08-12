@@ -12,37 +12,38 @@ use PHPUnit\Framework\TestCase;
 
 class AuthCollectionTest extends TestCase
 {
-    /*
-
+    
+    private EnviromentEntity $enviroment;
+    
     private AuthCollection $authCollection;
-
+    
     private Dotenv $dotenv;
-
+    
     protected function setUp(): void
     {
         parent::setUp();
-
+        
         $this->dotenv = Dotenv::createImmutable(__DIR__ . '/../../..', '.env.test');
         $this->dotenv->load();
-
-        $this->authCollection = new AuthCollection(
-            new EnviromentEntity(
-                $_ENV['AILOS_CONSUMER_KEY'],
-                $_ENV['AILOS_CONSUMER_SECRET'],
-                $_ENV['AILOS_URL_CALLBACK'],
-                $_ENV['AILOS_API_KEY_DEVELOPER'],
-                $_ENV['AILOS_CODIGO_COOPERATIVA'],
-                $_ENV['AILOS_CODIGO_CONTA'],
-                $_ENV['AILOS_SENHA']
-            )
+        
+        $this->enviroment = new EnviromentEntity(
+            getenv('AILOS_CONSUMER_KEY') ?: '',
+            getenv('AILOS_CONSUMER_SECRET') ?: '',
+            getenv('AILOS_URL_CALLBACK') ?: '',
+            getenv('AILOS_API_KEY_DEVELOPER') ?: '',
+            getenv('AILOS_CODIGO_COOPERATIVA') ?: '',
+            getenv('AILOS_CODIGO_CONTA') ?: '',
+            getenv('AILOS_SENHA') ?: ''
         );
-    }
 
+        $this->authCollection = new AuthCollection($this->enviroment);
+    }
+      
     public function testAuthAccessTokenEndpoint(): void
     {
         $accessToken = $this->authCollection->authAccessTokenEndpoint(
-            $_ENV['AILOS_CONSUMER_KEY'],
-            $_ENV['AILOS_CONSUMER_SECRET']
+            $this->enviroment->consumerKey,
+            $this->enviroment->consumerSecret
         );
 
         $this->assertInstanceOf(AccessTokenEntity::class, $accessToken);
@@ -52,44 +53,40 @@ class AuthCollectionTest extends TestCase
     public function testAuthIdEndpoint(): void
     {
         $token = $this->authCollection->authAccessTokenEndpoint(
-            $_ENV['AILOS_CONSUMER_KEY'],
-            $_ENV['AILOS_CONSUMER_SECRET']
+            $this->enviroment->consumerKey,
+            $this->enviroment->consumerSecret
         )->accessToken;
 
         $id = $this->authCollection->authIdEndpoint(
             $token,
-            $_ENV['AILOS_URL_CALLBACK'],
-            $_ENV['AILOS_API_KEY_DEVELOPER'],
+            $this->enviroment->urlCallback,
+            $this->enviroment->developerKey,
             'test-success'
         );
 
-        $this->assertIsString($id);
         $this->assertNotEmpty($id);
     }
 
     public function testAuthJwtEndpoint(): void
     {
         $token = $this->authCollection->authAccessTokenEndpoint(
-            $_ENV['AILOS_CONSUMER_KEY'],
-            $_ENV['AILOS_CONSUMER_SECRET']
+            $this->enviroment->consumerKey,
+            $this->enviroment->consumerSecret
         )->accessToken;
 
         $id = $this->authCollection->authIdEndpoint(
             $token,
-            $_ENV['AILOS_URL_CALLBACK'],
-            $_ENV['AILOS_API_KEY_DEVELOPER'],
+            $this->enviroment->urlCallback,
+            $this->enviroment->developerKey,
             'test-success'
         );
 
         $this->authCollection->authJwtEndpoint(
             $token,
             $id,
-            (int) $_ENV['AILOS_CODIGO_COOPERATIVA'],
-            $_ENV['AILOS_CODIGO_CONTA'],
-            $_ENV['AILOS_SENHA']
+            $this->enviroment->codigoCooperativa,
+            $this->enviroment->codigoConta,
+            $this->enviroment->senha
         );
-
-        $this->assertTrue(true);
     }
-         */
 }
