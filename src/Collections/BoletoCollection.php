@@ -6,6 +6,7 @@ namespace Ailos\Sdk\Collections;
 
 use Ailos\Sdk\Entities\BoletoEntity;
 use Ailos\Sdk\Entities\BoletoLoteEntity;
+use Ailos\Sdk\Framework\Collection;
 use DomainException;
 
 readonly class BoletoCollection extends Collection

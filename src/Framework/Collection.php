@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Ailos\Sdk\Collections;
+namespace Ailos\Sdk\Framework;
 
+use Ailos\Sdk\Collections\AuthCollection;
 use Ailos\Sdk\Entities\AccessTokenEntity;
 use Ailos\Sdk\Entities\EnviromentEntity;
 use Ailos\Sdk\Entities\JwtEntity;

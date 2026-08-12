@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ailos\Sdk\Collections;
 
 use Ailos\Sdk\Entities\AccessTokenEntity;
+use Ailos\Sdk\Framework\Collection;
 use DomainException;
 
 readonly class AuthCollection extends Collection
