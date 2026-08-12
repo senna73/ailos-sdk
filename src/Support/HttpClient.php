@@ -17,9 +17,9 @@ readonly class HttpClient
     }
 
     /**
-     * @param array<mixed, mixed> $headers 
-     * @param array<mixed, mixed> $data 
-     * @throws RuntimeException 
+     * @param array<mixed, mixed> $headers
+     * @param array<mixed, mixed> $data
+     * @throws RuntimeException
      */
     public function post(string $url, array $headers = [], array $data = []): mixed
     {
@@ -34,16 +34,16 @@ readonly class HttpClient
                 throw new \RuntimeException($this->curl->errorMessage);
             }
 
-            throw new \RuntimeException("Erro desconhecido no cliente Http");
+            throw new \RuntimeException('Erro desconhecido no cliente Http');
         }
 
         return $this->curl->response;
     }
 
     /**
-     * @param array<mixed, mixed> $headers 
-     * @param array<mixed, mixed> $query 
-     * @throws RuntimeException 
+     * @param array<mixed, mixed> $headers
+     * @param array<mixed, mixed> $query
+     * @throws RuntimeException
      */
     public function get(string $url, array $headers = [], array $query = []): mixed
     {
@@ -58,7 +58,7 @@ readonly class HttpClient
                 throw new \RuntimeException($this->curl->errorMessage);
             }
 
-            throw new \RuntimeException("Erro desconhecido no cliente Http");
+            throw new \RuntimeException('Erro desconhecido no cliente Http');
         }
 
         return $this->curl->response;

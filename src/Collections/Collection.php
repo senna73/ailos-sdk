@@ -82,7 +82,7 @@ abstract readonly class Collection
 
             if ($item->isHit()) {
                 $item = $item->get();
-                
+
                 if (!($item instanceof JwtEntity)) {
                     throw new \RuntimeException('Item obtido com tipagem errada');
                 }

@@ -9,7 +9,6 @@ use CuyZ\Valinor\Mapper\MappingError;
 use CuyZ\Valinor\Mapper\Source\Source;
 use CuyZ\Valinor\Mapper\TreeMapper;
 use CuyZ\Valinor\MapperBuilder;
-use InvalidArgumentException;
 
 abstract class Entity
 {
@@ -29,7 +28,7 @@ abstract class Entity
     }
 
     /**
-     * @param array<string, mixed> $data 
+     * @param array<string, mixed> $data
      */
     public static function fromArray(array $data): static
     {
