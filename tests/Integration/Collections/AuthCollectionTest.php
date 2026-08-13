@@ -23,7 +23,7 @@ class AuthCollectionTest extends TestCase
         parent::setUp();
 
         $this->dotenv = Dotenv::createImmutable(__DIR__ . '/../../..', '.env');
-        $this->dotenv->load();
+        $this->dotenv->safeLoad();
 
         $this->enviroment = new EnviromentEntity(
             getenv('AILOS_CONSUMER_KEY') ?: '',
