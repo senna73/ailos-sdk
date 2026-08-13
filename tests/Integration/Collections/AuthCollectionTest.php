@@ -33,7 +33,6 @@ class AuthCollectionTest extends TestCase
             getenv('AILOS_CODIGO_COOPERATIVA') ?: '',
             getenv('AILOS_CODIGO_CONTA') ?: '',
             getenv('AILOS_SENHA') ?: '',
-
         );
 
         if ($this->enviroment->ambiente != 'homol') {
