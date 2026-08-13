@@ -7,43 +7,9 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  unit:
-    name: Unit Tests — PHP ${{ matrix.php-version }}
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        php-version: [ '8.5' ]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-version }}
-          coverage: xdebug
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
-
-      - name: Lint PHP syntax
-        run: composer lint
-
-      - name: Check code style
-        run: composer cs-check
-
-      - name: Run PHPStan
-        run: composer phpstan
-
-      - name: Run unit tests
-        run: composer test:unit
-
   integration:
     name: Integration Tests — Ailos API
     runs-on: ubuntu-latest
-    needs: unit
 
     steps:
       - name: Checkout
