@@ -8,7 +8,7 @@ use Ailos\Sdk\Collections\BoletoCollection;
 use Ailos\Sdk\Entities\BoletoEntity;
 use Ailos\Sdk\Entities\EnviromentEntity;
 use Ailos\Sdk\Entities\JwtEntity;
-use Ailos\Sdk\Support\Storage;
+use Ailos\Sdk\Framework\Storage;
 
 class Ailos
 {
