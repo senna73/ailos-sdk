@@ -8,8 +8,6 @@ use Ailos\Sdk\Collections\AuthCollection;
 use Ailos\Sdk\Entities\AccessTokenEntity;
 use Ailos\Sdk\Entities\EnviromentEntity;
 use Ailos\Sdk\Entities\JwtEntity;
-use Ailos\Sdk\Support\HttpClient;
-use Ailos\Sdk\Support\Storage;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Contracts\Cache\ItemInterface;
 

@@ -22,7 +22,7 @@ class AuthCollectionTest extends TestCase
     {
         parent::setUp();
 
-        $this->dotenv = Dotenv::createImmutable(__DIR__ . '/../../..', '.env.test');
+        $this->dotenv = Dotenv::createImmutable(__DIR__ . '/../../..', '.env');
         $this->dotenv->load();
 
         $this->enviroment = new EnviromentEntity(

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ailos\Sdk\Support;
+namespace Ailos\Sdk\Framework;
 
 use Curl\Curl;
 use RuntimeException;

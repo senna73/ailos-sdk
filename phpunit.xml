@@ -6,6 +6,9 @@
          stopOnFailure="false"
          failOnEmptyTestSuite="false"
 >
+    <php>
+        <ini name="memory_limit" value="512M"/>
+    </php>
     <testsuites>
         <testsuite name="Unit">
             <directory>tests/Unit</directory>
