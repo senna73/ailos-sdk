@@ -1,5 +1,18 @@
 FROM php:8.5-cli
 
+RUN apt-get update && apt-get install -y $PHPIZE_DEPS
+
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
+# Configuração do Xdebug
+RUN { \
+        echo 'xdebug.mode=debug,develop'; \
+        echo 'xdebug.start_with_request=yes'; \
+        echo 'xdebug.client_host=host.docker.internal'; \
+        echo 'xdebug.client_port=9003'; \
+        echo 'xdebug.discover_client_host=false'; \
+    } > /usr/local/etc/php/conf.d/xdebug.ini
+
 # Instala dependências do sistema necessárias para extensões comuns e para o Composer
 RUN apt-get update && apt-get install -y --no-install-recommends \
         git \

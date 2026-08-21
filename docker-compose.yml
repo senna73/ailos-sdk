@@ -7,3 +7,5 @@ services:
     working_dir: /app
     tty: true
     stdin_open: true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

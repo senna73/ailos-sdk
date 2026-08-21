@@ -32,7 +32,7 @@
 
     "scripts": {
         "lint": "find src -type f -name '*.php' -print0 | xargs -0 -n1 php -l",
-        "test:integration": "XDEBUG_MODE=off vendor/bin/phpunit -c phpunit.xml --testsuite Integration",
+        "test:integration": "vendor/bin/phpunit -c phpunit.xml --testsuite Integration",
         "cs-check": "vendor/bin/php-cs-fixer fix --dry-run --diff --config=.php-cs-fixer.php",
         "cs-fix": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php",
         "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon",

@@ -13,7 +13,10 @@ readonly class HttpClient
 
     public function __construct(
     ) {
-        $this->curl = new Curl();
+        $this->curl = new Curl(null, [
+            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_TIMEOUT => 30,
+        ]);
     }
 
     /**
