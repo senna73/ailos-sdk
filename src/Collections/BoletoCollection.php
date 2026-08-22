@@ -13,9 +13,8 @@ readonly class BoletoCollection extends Collection
 {
     public function consultarUnicoBoleto(string $convenio, string $numero): BoletoEntity
     {
-        $response = $this->httpClient->get(
-            $this->getBaseUrl() . "/ailos/cobranca/api/v2/boletos/consultar/boleto/convenios/{$convenio}/{$numero}",
-            $this->getAuthHeader()
+        $response = $this->get(
+            "/ailos/cobranca/api/v2/boletos/consultar/boleto/convenios/{$convenio}/{$numero}"
         );
 
         if (!($response instanceof \stdClass)) {
@@ -27,19 +26,17 @@ readonly class BoletoCollection extends Collection
 
     public function gerarUnicoBoleto(string $convenio, BoletoEntity $boleto): void
     {
-        $this->httpClient->post(
-            $this->getBaseUrl() . "/ailos/cobranca/api/v2/boletos/gerar/boleto/convenios/{$convenio}",
-            $this->getAuthHeader(),
-            $boleto::toArray()
+        $this->post(
+            "/ailos/cobranca/api/v2/boletos/gerar/boleto/convenios/{$convenio}",
+            $boleto
         );
     }
 
     public function gerarLoteBoletos(string $convenio, BoletoLoteEntity $lote): void
     {
-        $this->httpClient->post(
-            $this->getBaseUrl() . "/ailos/cobranca/api/v2/boletos/gerar/boleto/convenios/{$convenio}",
-            $this->getAuthHeader(),
-            $lote::toArray()
+        $this->post(
+            "/ailos/cobranca/api/v2/boletos/gerar/lote/convenios/{$convenio}",
+            $lote
         );
     }
 

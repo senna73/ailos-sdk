@@ -14,6 +14,8 @@ class EnviromentEntity extends Entity
         'prod'  => 'https://apiendpoint.ailos.coop.br',
     ];
 
+    public string $baseUrl;
+
     public function __construct(
         public readonly string $consumerKey,
         public readonly string $consumerSecret,
@@ -29,10 +31,6 @@ class EnviromentEntity extends Entity
                 "Ambiente inválido '{$this->ambiente}'. Permitido: " . implode(', ', array_keys(self::URLS))
             );
         }
-    }
-
-    public function getBaseUrl(): string
-    {
-        return self::URLS[$this->ambiente];
+        $this->baseUrl = self::URLS[$this->ambiente];
     }
 }

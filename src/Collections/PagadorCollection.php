@@ -9,15 +9,11 @@ use Ailos\Sdk\Framework\Collection;
 
 readonly class PagadorCollection extends Collection
 {
-    public function cadastrarPagador(string $accessToken, string $jwt, PagadorEntity $pagador): void
+    public function cadastrarPagador(PagadorEntity $pagador): void
     {
-        $this->httpClient->post(
-            $this->getBaseUrl() . '/ailos/cobranca/api/v1/pagadores/cadastrar',
-            [
-                'x-ailos-authentication' => $jwt,
-                'Authorization' => 'Bearer ' . $accessToken,
-            ],
-            $pagador::toArray()
+        $this->post(
+            '/ailos/cobranca/api/v1/pagadores/cadastrar',
+            $pagador
         );
     }
 }

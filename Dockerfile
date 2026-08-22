@@ -6,7 +6,7 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 # Configuração do Xdebug
 RUN { \
-        echo 'xdebug.mode=debug,develop'; \
+        echo 'xdebug.mode=coverage,debug,develop'; \
         echo 'xdebug.start_with_request=yes'; \
         echo 'xdebug.client_host=host.docker.internal'; \
         echo 'xdebug.client_port=9003'; \
