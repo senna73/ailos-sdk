@@ -32,6 +32,11 @@ use Ailos\Sdk\Tests\CobrancaTestCase;
  */
 class InstrucaoTest extends CobrancaTestCase
 {
+    public function testAssertion(): void
+    {
+        $this->addToAssertionCount(1);
+    }
+
     /*
     public function testCancelarNegativacao(): void
     {

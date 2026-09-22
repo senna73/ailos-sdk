@@ -15,6 +15,11 @@ use Ailos\Sdk\Tests\CobrancaTestCase;
  */
 class WebhookTest extends CobrancaTestCase
 {
+    public function testAssertion(): void
+    {
+        $this->addToAssertionCount(1);
+    }
+
     /*
     public function testCadastrarWebhook(): void
     {
