@@ -81,7 +81,7 @@ class BoletoTest extends CobrancaTestCase
                 'codigoCarteiraCobranca' => 1,
             ],
             'documento' => [
-                'numeroDocumento' => rand(100000, 999999),
+                'numeroDocumento' => '100001',
                 'descricaoDocumento' => 'Mensalidade',
                 'especieDocumento' => 1,
             ],
