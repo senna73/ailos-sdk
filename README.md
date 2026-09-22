@@ -8,3 +8,10 @@ Este SDK foi desenvolvido para facilitar a integração com os serviços da Coop
 ```bash
 composer require ailos/sdk
 ```
+
+**Requisitos**
+- PHP `^8.5`
+- PHP extensão `ext-apcu`
+- PHP extensão `ext-curl`
+- PHP extensão `ext-dom`
+- PHP extensão `ext-libxml`
