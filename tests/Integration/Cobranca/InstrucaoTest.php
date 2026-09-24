@@ -142,9 +142,10 @@ class InstrucaoTest extends CobrancaTestCase
 
         $this->addToAssertionCount(1);
     }
-        */
+
 
     /** @return CancelarNegativacaoRequest */
+    /*
     private function instrucoes(): array
     {
         return [
@@ -156,8 +157,10 @@ class InstrucaoTest extends CobrancaTestCase
             ],
         ];
     }
+    */
 
     /** @return ProtestoAutomaticoRequest */
+    /*
     private function protestoAutomatico(): array
     {
         return [
@@ -170,8 +173,10 @@ class InstrucaoTest extends CobrancaTestCase
             ],
         ];
     }
+    */
 
     /** @return AlterarFormaEmissaoRequest */
+    /*
     private function alterarFormaEmissao(): array
     {
         return [
@@ -186,8 +191,10 @@ class InstrucaoTest extends CobrancaTestCase
             ],
         ];
     }
+    */
 
     /** @return GerarEnvioSmsRequest */
+    /*
     private function gerarEnvioSms(): array
     {
         return [
@@ -205,8 +212,10 @@ class InstrucaoTest extends CobrancaTestCase
             ],
         ];
     }
+    */
 
     /** @return ConcederAbatimentoRequest */
+    /*
     private function concederAbatimento(): array
     {
         return [
@@ -219,8 +228,10 @@ class InstrucaoTest extends CobrancaTestCase
             ],
         ];
     }
+    */
 
     /** @return ConcederDescontoRequest */
+    /*
     private function concederDesconto(): array
     {
         return [
@@ -239,8 +250,10 @@ class InstrucaoTest extends CobrancaTestCase
             ],
         ];
     }
+    */
 
     /** @return AlteracaoVencimentoRequest */
+    /*
     private function alteracaoVencimento(): array
     {
         return [
@@ -255,4 +268,5 @@ class InstrucaoTest extends CobrancaTestCase
             ],
         ];
     }
+    */
 }

@@ -52,6 +52,7 @@ class WebhookTest extends CobrancaTestCase
     */
 
     /** @return CadastrarWebhookRequest */
+    /*
     private function webhook(): array
     {
         return [
@@ -60,4 +61,5 @@ class WebhookTest extends CobrancaTestCase
             'url' => 'https://play.svix.com/in/e_zP7ZsNZl3RjJ3922xKM4Y8WTa1Q/',
         ];
     }
+    */
 }

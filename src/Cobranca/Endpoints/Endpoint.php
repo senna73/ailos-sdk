@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ailos\Sdk\Cobranca\Endpoints;
 
 use Ailos\Sdk\Cobranca\Auth\Auth;
-use Ailos\Sdk\Cobranca\Context\CobrancaContext;
+use Ailos\Sdk\Cobranca\Config\CobrancaConfig;
 use Ailos\Sdk\Http\IHttp;
 use Ailos\Sdk\Http\Request;
 use Ailos\Sdk\Http\Response;
@@ -13,7 +13,7 @@ use Ailos\Sdk\Http\Response;
 abstract class Endpoint implements IHttp
 {
     public function __construct(
-        public readonly CobrancaContext $context,
+        public readonly CobrancaConfig $context,
     ) {
     }
 
@@ -40,7 +40,7 @@ abstract class Endpoint implements IHttp
     private function authenticate(Request $request): Request
     {
         $request = $request->withPath(
-            $this->context->baseUrl . $request->path
+            $this->context->baseUrl() . $request->path
         );
 
         $auth = new Auth($this->context);

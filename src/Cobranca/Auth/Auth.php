@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Ailos\Sdk\Cobranca\Auth;
 
-use Ailos\Sdk\Cobranca\Context\CobrancaContext;
+use Ailos\Sdk\Cobranca\Config\CobrancaConfig;
 use Ailos\Sdk\Http\Request;
 use DomainException;
 
 final class Auth
 {
-    public function __construct(private CobrancaContext $context)
+    public function __construct(private CobrancaConfig $context)
     {
     }
 
@@ -175,7 +175,7 @@ final class Auth
         );
 
         $request = new Request(
-            path: $this->context->baseUrl . '/token',
+            path: $this->context->baseUrl() . '/token',
             headers: [
                 'Authorization' => $authorization,
                 'Content-Type' => 'application/x-www-form-urlencoded',
@@ -197,7 +197,7 @@ final class Auth
         $this->setState($state);
 
         $request = new Request(
-            path: $this->context->baseUrl . '/ailos/identity/api/v1/autenticacao/login/obter/id',
+            path: $this->context->baseUrl() . '/ailos/identity/api/v1/autenticacao/login/obter/id',
             headers: [
                 'Content-Type' => 'application/json',
                 'Accept' => 'text/plain',
@@ -216,7 +216,7 @@ final class Auth
     private function requestJwt(AccessToken $accessToken, string $id): void
     {
         $request = new Request(
-            path: $this->context->baseUrl . '/ailos/identity/api/v1/login/index?id=' . rawurlencode($id),
+            path: $this->context->baseUrl() . '/ailos/identity/api/v1/login/index?id=' . rawurlencode($id),
             headers: [
                 'Authorization' => 'Bearer ' . $accessToken->accessToken,
                 'Content-Type' => 'application/x-www-form-urlencoded',
@@ -303,7 +303,7 @@ final class Auth
     private function requestJwtRefresh(AccessToken $accessToken, Jwt $jwt): Jwt
     {
         $request = new Request(
-            path: $this->context->baseUrl . "/ailos/identity/api/v1/autenticacao/token/refresh?code={$jwt->code}",
+            path: $this->context->baseUrl() . "/ailos/identity/api/v1/autenticacao/token/refresh?code={$jwt->code}",
             headers: [
                 'Authorization' => 'Bearer ' . $accessToken->accessToken,
             ]

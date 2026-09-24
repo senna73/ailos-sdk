@@ -6,7 +6,7 @@ namespace Ailos\Sdk\Cobranca;
 
 use Ailos\Sdk\Cobranca\Auth\Auth;
 use Ailos\Sdk\Cobranca\Auth\Jwt;
-use Ailos\Sdk\Cobranca\Context\CobrancaContext;
+use Ailos\Sdk\Cobranca\Config\CobrancaConfig;
 use Ailos\Sdk\Cobranca\Endpoints\Emissao\ConsultarBoleto;
 use Ailos\Sdk\Cobranca\Endpoints\Emissao\GerarBoleto;
 use Ailos\Sdk\Cobranca\Endpoints\Emissao\GerarLoteBoleto;
@@ -63,7 +63,7 @@ use Ailos\Sdk\Cobranca\Endpoints\Webhook\ListarWebhooks;
  */
 final class Cobranca
 {
-    public function __construct(private CobrancaContext $context)
+    public function __construct(private CobrancaConfig $context)
     {
     }
 
