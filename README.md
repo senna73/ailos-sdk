@@ -1,7 +1,30 @@
 # Ailos Software Development Kit (SDK)
-Este SDK foi desenvolvido para facilitar a integração com os serviços da Cooperativa Ailos, oferecendo uma interface simples, segura e eficiente para desenvolvedores PHP.
+Este SDK foi desenvolvido para facilitar a integração com os serviços das cooperativas Ailos, oferecendo uma interface simples, segura e eficiente para desenvolvedores PHP.
 
 <img width="1280" height="640" alt="screwdriver-wrench-solid-full 1 (1)" src="https://github.com/user-attachments/assets/3ef12722-d94e-487f-84a3-db0e3bb26def" />
+
+<div align="center">
+
+[![Stars](https://img.shields.io/github/stars/senna73/ailos-sdk?style=flat)](https://github.com/senna73/ailos-sdk)
+[![Forks](https://img.shields.io/github/forks/senna73/ailos-sdk?style=flat)](https://github.com/senna73/ailos-sdk/network/members)
+[![Release](https://img.shields.io/github/v/release/senna73/ailos-sdk?style=flat)](https://github.com/senna73/ailos-sdk/releases)
+[![Release Date](https://img.shields.io/github/release-date/senna73/ailos-sdk?style=flat)](https://github.com/senna73/ailos-sdk/releases)
+[![Last Commit](https://img.shields.io/github/last-commit/senna73/ailos-sdk?style=flat)](https://github.com/senna73/ailos-sdk)
+[![Commit Activity](https://img.shields.io/github/commit-activity/y/senna73/ailos-sdk?style=flat)](https://github.com/senna73/ailos-sdk)
+[![Issues](https://img.shields.io/github/issues/senna73/ailos-sdk?style=flat)](https://github.com/senna73/ailos-sdk/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/senna73/ailos-sdk?style=flat)](https://github.com/senna73/ailos-sdk/pulls)
+[![Contributors](https://img.shields.io/github/contributors/senna73/ailos-sdk?style=flat)](https://github.com/senna73/ailos-sdk/graphs/contributors)
+[![Top Language](https://img.shields.io/github/languages/top/senna73/ailos-sdk?style=flat)](https://github.com/senna73/ailos-sdk)
+[![Repository Size](https://img.shields.io/github/repo-size/senna73/ailos-sdk?style=flat)](https://github.com/senna73/ailos-sdk)
+[![Code Size](https://img.shields.io/github/languages/code-size/senna73/ailos-sdk?style=flat)](https://github.com/senna73/ailos-sdk)
+[![License](https://img.shields.io/github/license/senna73/ailos-sdk?style=flat)](https://github.com/senna73/ailos-sdk/blob/main/LICENSE)
+<!--
+[![Tests](https://img.shields.io/github/actions/workflow/status/senna73/ailos-sdk/tests.yml?style=flat)](https://github.com/senna73/ailos-sdk/actions)
+[![Coverage](https://img.shields.io/codecov/c/github/senna73/ailos-sdk?style=flat)](https://codecov.io/gh/senna73/ailos-sdk)
+-->
+
+</div>
+
 
 ## Instalação
 
@@ -18,7 +41,7 @@ composer require ailos/sdk
 
 ## Cobrança
 
-As primeiras funcionalidades que podem ser testadas utilizando a biblioteca são as funcionalidades da API de cobrança da Ailos. Essa API é responsável por controlar a emissão de pagamentos.
+As primeiras funcionalidades que podem ser testadas utilizando a biblioteca são as funcionalidades da API de cobrança da Ailos. Essa API é responsável por controlar a emissão de boletos.
 
 ### Configuração
 
