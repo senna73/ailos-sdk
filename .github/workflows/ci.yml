@@ -18,7 +18,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.5'
+          php-version: '8.5.12'
           extensions: apcu
           ini-values: apc.enable_cli=1
           coverage: xdebug
